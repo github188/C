@@ -16,9 +16,11 @@ void trim_bank(char* buf)
 {
 	int a=0;
 	int b=0;
-	
-	int len=strlen(buf);
+	int len=0;
 
+	if (!buf) return;
+
+	len=strlen(buf);
 	while (a<len && isspace(buf[a++]));
 	// do with "   ", only bank in the string
 	if (a--==len) {
@@ -55,6 +57,10 @@ int main(int argc, char* argv[])
 	testFunc("abc 1234  ");
 	testFunc("  abc 1234");
 	testFunc("  abc 1234  ");
+
+	// Test for null point
+	char* p;
+	trim_bank(p);
 
 	return 0;
 }
