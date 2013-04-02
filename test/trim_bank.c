@@ -12,6 +12,7 @@
 
 #define MAX_SIZE 128
 
+// trim begin and end space
 void trim_bank(char* buf)
 {
 	int a=0;
@@ -34,6 +35,16 @@ void trim_bank(char* buf)
 
 	strncpy(buf, buf+a, b-a);
 	buf[b-a] = '\0';
+	memset(buf+b-a, 0, len-b+a);
+}
+
+void print_arr(char* buf, int size)
+{
+	printf(" array characters:\"");
+	int i=0;
+	for (i=0; i<size; i++)
+		printf("%c", buf[i]);
+	printf("\"\n");
 }
 
 void testFunc(char* buf)
@@ -46,6 +57,7 @@ void testFunc(char* buf)
 	printf("Before trim bank, Len:%d,\"%s\"\n", strlen(arr), arr);
 	trim_bank(arr);
 	printf(" After trim bank, Len:%d,\"%s\"\n", strlen(arr), arr);
+	print_arr(arr, sizeof(arr));
 }
 
 int main(int argc, char* argv[])
