@@ -1,5 +1,6 @@
+// netbios.c
 // Get mac address with NetBIOS protocol
-// compile with gcc on linux
+// compile with gcc on linux: gcc -o netbios netbios.c
 // Create by Dennis
 // 2013-04-10
 #include <stdio.h>
@@ -68,7 +69,7 @@ void parse_netbios(char* buf, int len)
 				Names[i].nb_name[j]=0;  
 		}  
 	}
-
+#if 0
 	for(i=0;i<count;i++){  
 		// 如果最后一位是0x00，则表示当前名字表项为保存计算机名或者工作组  
 		if(Names[i].nb_name[15] == 0x00){  
@@ -83,11 +84,11 @@ void parse_netbios(char* buf, int len)
 			}  
 		}  
 	}  
-
+#endif
 	unsigned char mac[6];
 	// 名字表后面是MAC地址  
 	memcpy(mac,(respuesta+57+count*sizeof(struct names)),6);  
-	printf("  mac: %02x-%02x-%02x-%02x-%02x-%02x\n", 
+	printf(": %02x-%02x-%02x-%02x-%02x-%02x\n", 
 		mac[0],mac[1],mac[2],mac[3],mac[4],mac[5]);
 }
 
@@ -102,7 +103,7 @@ int main(int argc,char*argv[]) {
 	fd_set readfd;
 
 	struct timeval timeout;
-	timeout.tv_sec=2;
+	timeout.tv_sec=1;
 	timeout.tv_usec=0;
 
 	sock=socket(AF_INET,SOCK_DGRAM,0);
@@ -114,47 +115,52 @@ int main(int argc,char*argv[]) {
 	server_addr.sin_family=AF_INET;
 	server_addr.sin_port=htons(NETBIOS_PORT);
 	//server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-	if (argc > 1)
-		server_addr.sin_addr.s_addr = inet_addr(argv[1]);
-	else
-		server_addr.sin_addr.s_addr = inet_addr("192.168.50.39");
-
-	//ret = setsockopt(sock,SOL_SOCKET,SO_BROADCAST,&so_broadcast,sizeof(so_broadcast));
-
+	
 	char recvbuf[1024] = {0};
-	int times=10;
-	int i=0;
-	for (i=0; i<times; i++) {
-		timeout.tv_sec=2;
-		timeout.tv_usec=0;
-		//printf("==> IP :%s Port:%d\n",inet_ntoa(server_addr.sin_addr), ntohs(server_addr.sin_port));
-		ret = sendto(sock,&bs,sizeof(bs),0,(struct sockaddr*)&server_addr,sizeof(server_addr));
-		if (ret==-1) {
-			printf("Failed to do sendto\n");
-			continue;
-		}
 
-		FD_ZERO(&readfd);
-		FD_SET(sock,&readfd);
+	int argIndex = 1;
+	for (; argIndex<argc; argIndex++)
+	{
+		server_addr.sin_addr.s_addr = inet_addr(argv[argIndex]);
 
-		ret = select(sock+1,&readfd,NULL,NULL,&timeout);
-		switch (ret) {
-			case -1:
-				break;
-			case 0:
-				printf("timeout\n");
-				break;
-			default:
-				if(FD_ISSET(sock,&readfd)) {
-					memset(recvbuf, 0, sizeof(recvbuf));
-					count=recvfrom(sock,recvbuf,sizeof(recvbuf),0,(struct sockaddr*)&from_addr,&from_len);
-					printf("   ip: %s\n", inet_ntoa(from_addr.sin_addr));
-					parse_netbios(recvbuf, count);
-					return 1;  
-				}
-				break;
+		//ret = setsockopt(sock,SOL_SOCKET,SO_BROADCAST,&so_broadcast,sizeof(so_broadcast));
+
+		memset(recvbuf, 0, sizeof(recvbuf));
+
+		int times=1;
+		int i=0;
+		for (i=0; i<times; i++) {
+			timeout.tv_sec=1;
+			timeout.tv_usec=0;
+			//printf("==> IP :%s Port:%d\n",inet_ntoa(server_addr.sin_addr), ntohs(server_addr.sin_port));
+			ret = sendto(sock,&bs,sizeof(bs),0,(struct sockaddr*)&server_addr,sizeof(server_addr));
+			if (ret==-1) {
+				printf("Failed to do sendto\n");
+				continue;
+			}
+
+			FD_ZERO(&readfd);
+			FD_SET(sock,&readfd);
+
+			ret = select(sock+1,&readfd,NULL,NULL,&timeout);
+			switch (ret) {
+				case -1:
+					break;
+				case 0:
+					printf("%16s : timeout\n",inet_ntoa(server_addr.sin_addr));
+					//return 0;
+					break;
+				default:
+					if(FD_ISSET(sock,&readfd)) {
+						memset(recvbuf, 0, sizeof(recvbuf));
+						count=recvfrom(sock,recvbuf,sizeof(recvbuf),0,(struct sockaddr*)&from_addr,&from_len);
+						printf("%16s ", inet_ntoa(from_addr.sin_addr));
+						parse_netbios(recvbuf, count);
+						//return 0;  
+					}
+					break;
+			}
 		}
 	}
-
 	return 0;
 }
