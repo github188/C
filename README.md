@@ -3,6 +3,10 @@ C
 
 #C Code
 
+##util
+Utility function  
+Most of the code is write by others(program genius), thanks for their work.
+
 ##iplocator  
 A simple broadcast code, use for search devices in LAN
 
