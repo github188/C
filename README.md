@@ -16,6 +16,7 @@ Get mac address with NetBIOS protocol
 ##netdetect
 Reference: 
 [linux应用层监控网线插拔状态的实现](http://www.cnblogs.com/sunzl1987/archive/2012/05/24/2516635.html)
+[bash script to detect physical connected state](http://stackoverflow.com/questions/808560/how-to-detect-the-physical-connected-state-of-a-network-cable-connector)
 
 ##proxy
 1. source from [proxyd.c](https://github.com/webee/libscripts/blob/master/src/proxyd.c)  
