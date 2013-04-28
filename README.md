@@ -1,7 +1,5 @@
-C
+C code
 =
-
-#C Code
 
 ##util
 Utility function  
@@ -15,8 +13,8 @@ Get mac address with NetBIOS protocol
 
 ##netdetect
 Reference: 
-1).[linux应用层监控网线插拔状态的实现](http://www.cnblogs.com/sunzl1987/archive/2012/05/24/2516635.html)
-2).[bash script to detect physical connected state](http://stackoverflow.com/questions/808560/how-to-detect-the-physical-connected-state-of-a-network-cable-connector)
++ [linux应用层监控网线插拔状态的实现](http://www.cnblogs.com/sunzl1987/archive/2012/05/24/2516635.html)
++ [bash script to detect physical connected state](http://stackoverflow.com/questions/808560/how-to-detect-the-physical-connected-state-of-a-network-cable-connector)
 
 ##proxy
 1. source from [proxyd.c](https://github.com/webee/libscripts/blob/master/src/proxyd.c)  
@@ -30,9 +28,9 @@ Reference:
    example like this:  "wall testmessage" 
 
 ##arp
-Example of using ARP protocol
-1. send_arp.c : a simple code of send arp packet to special computer.
-2. IPfinder.c : find alive hosts in lan with ARP protocol. (TO DO)
+Example of using ARP protocol  
+1. send_arp.c : a simple code of send arp packet to special computer.  
+2. IPfinder.c : find alive hosts in lan with ARP protocol. (TO DO)  
 Reference:  
-1).[Linux发送arp请求与接收arp响应](http://blog.csdn.net/steve505/article/details/5111289)
-2).[Linux原始套接字之ARP协议实现](http://blog.csdn.net/chenjin_zhong/article/details/7272156)
++ [Linux发送arp请求与接收arp响应](http://blog.csdn.net/steve505/article/details/5111289)
++ [Linux原始套接字之ARP协议实现](http://blog.csdn.net/chenjin_zhong/article/details/7272156)
