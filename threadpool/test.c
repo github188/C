@@ -1,6 +1,6 @@
 /**
  * test.c
- *
+ * sample code of thread pool
  */
 
 #include <stdio.h>
@@ -52,7 +52,7 @@ void AddTask(task func_ins, void *arg_ins, task func_exit, void *arg_exit)
 	thrdcall_ins.thrdfunc=func_ins;
 	thrdcall_exit.arg=arg_exit;
 	thrdcall_exit.thrdfunc=func_exit;
-	thr_addClt(g_pthreadpool, 1, thrdcall_ins, thrdcall_exit);
+	thr_add_task(g_pthreadpool, 1, thrdcall_ins, thrdcall_exit);
 }
 
 int main(int argc, char **argv)
