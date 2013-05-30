@@ -653,11 +653,11 @@ thrdpool_t *thr_createThrdPool(int maxthrds, int maxtasks, char *plogfile) {
 }
 
 int thr_destroyThrdPool(thrdpool_t *pthrdpool) {
+	UINT32 idx;
 	if(pthrdpool == NULL) {
         return threadpool_invalid;
     }
 
-	UINT32 idx;
 	for (idx = 0; idx < pthrdpool->thrdtab.count; idx++) {
 #ifdef	LINUX
 		pthread_cancel(pthrdpool->thrdtab.pthrds[idx]);

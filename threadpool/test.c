@@ -8,33 +8,31 @@
 
 thrdpool_t *g_pthreadpool = NULL;
 
-typedef void* (*task)(void*);
+typedef void (*task)(void*);
 
 
-void* Task1(void *arg)
+void Task1(void *arg)
 {
-	ENTER_FUNC();
 	//printf("parameter: %d\n", *((int*)arg));
 	int i=100;
+	ENTER_FUNC();
 	while (i--) {
-		printf("This is %s\n", __func__);
-		sleep(1);
+		printf("This is %s\n", FUNC_NAME);
+		SLEEP(1);
 	}
 	EXIT_FUNC();
-	return 0;
 }
 
-void* Task2(void *arg)
+void Task2(void *arg)
 {
-	ENTER_FUNC();
 	//printf("parameter: %d\n", *(int*)arg);
 	int i=50;
+	ENTER_FUNC();
 	while (i--) {
-		printf("This is %s\n", __func__);
-		sleep(2);
+		printf("This is %s\n", FUNC_NAME);
+		SLEEP(2);
 	}
 	EXIT_FUNC();
-	return 0;
 }
 
 int InitPool()
@@ -57,15 +55,16 @@ void AddTask(task func_ins, void *arg_ins, task func_exit, void *arg_exit)
 
 int main(int argc, char **argv)
 {
-	if (0 != InitPool()) return 1;
-
 	int arg_ins=1;
 	float arg_exit=7;
+
+	if (0 != InitPool()) return 1;
+
 	AddTask(Task1, &arg_ins, NULL, &arg_exit);
 	AddTask(Task2, &arg_ins, NULL, &arg_exit);
 
 	while(1) {
-		sleep(10);
+		SLEEP(10);
 	}
 
 	return 0;

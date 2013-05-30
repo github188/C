@@ -103,7 +103,7 @@
 #endif
 
 #if defined WIN32
-
+#pragma message("defeind UINT32")
 	typedef int BOOL;
 	typedef signed char INT8, *PINT8;
 	typedef unsigned char UINT8, *PUINT8;
@@ -163,8 +163,20 @@
 #define FALSE 0
 #endif
 
-#define ENTER_FUNC() printf("+ %s\n", __func__);
-#define EXIT_FUNC()  printf("- %s\n", __func__);
+#if defined WIN32
+
+#define FUNC_NAME __FUNCTION__
+#define SLEEP(a) Sleep((a)*1000)
+
+#elif defined LINUX
+
+#define FUNC_NAME __func__
+#define SLEEP(a) sleep(a)
+
+#endif
+
+#define ENTER_FUNC() {printf("+ %s\n", FUNC_NAME);}
+#define EXIT_FUNC()  {printf("- %s\n", FUNC_NAME);}
 
 #endif // _PLATFORM_DEF_H_
 

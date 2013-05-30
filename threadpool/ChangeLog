@@ -1,0 +1,6 @@
+2013-05-30  Dennis <dennis.cpp@gmail.com>
+	
+	* Add Visual Studio 2005 compile
+	* Add SLEEP macro for multiple platform compile
+	* On win32 variables should be defined before any function called.
+	* Fix thread function-type different
