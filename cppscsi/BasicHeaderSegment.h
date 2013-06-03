@@ -1,27 +1,3 @@
-/*
- * =============================================================================
- *
- *       Filename:  BasicHeaderSegment.h
- *
- *    Description: This class encapsulate a Basic Header Segment (BHS), which is 
- *                 defined in the iSCSI Protocol (RFC3720). It provides methods 
- *                 for serializing or deserializing such an object. The 
- *                 contained data can be accessed seperately by the getter methods.
- *                 
- *                 The BHS has a fixed size, which is stored in the variable 
- *                 BHS_FIXED_SIZE. And these must the first bytes in a valid 
- *                 iSCSI Protocol Data Unit (PDU). org.jscsi.utils
- *
- *        Version:  1.0
- *        Created:  Monday, June 03, 2013 07:56:22 SGT
- *       Revision:  none
- *       Compiler:  gcc
- *
- *         Author:  Dennis
- *
- * =============================================================================
- */
-
 #ifndef __BASICHEADERSEGMENT_H__
 #define __BASICHEADERSEGMENT_H__
 
@@ -205,7 +181,7 @@ private:
      * 
      * @return The operation code of this BHS.
      */
-    OperationCode getOpCode();
+    //OperationCode getOpCode();
 
     /**
      * Returns a object of the used parser of this BHS.

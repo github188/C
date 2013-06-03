@@ -42,3 +42,8 @@ Reference:
 + [c threadpool](http://bbs.chinaunix.net/thread-580210-1-1.html)
 + [一个Linux下C线程池的实现](http://blog.csdn.net/zouxinfox/article/details/3560891)
 
+##cppscsi
+c++ implement of jSCSI (a feature-complete iSCSI implementation in Java only)
+Reference:  
++ [jSCSI github project](https://github.com/disy/jSCSI.git)
++ [jSCSI office website](http://jscsi.org)
