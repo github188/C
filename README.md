@@ -47,3 +47,4 @@ c++ implement of jSCSI (a feature-complete iSCSI implementation in Java only)
 Reference:  
 + [jSCSI github project](https://github.com/disy/jSCSI.git)
 + [jSCSI office website](http://jscsi.org)
++ [bytebuffer-cpp An implementation of ByteBuffer in C++](http://code.google.com/p/bytebuffer-cpp/)
