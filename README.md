@@ -43,8 +43,9 @@ Reference:
 + [一个Linux下C线程池的实现](http://blog.csdn.net/zouxinfox/article/details/3560891)
 
 ##cppscsi
-c++ implement of jSCSI (a feature-complete iSCSI implementation in Java only)
+c++ implement of jSCSI (a feature-complete iSCSI implementation in Java only)  
 Reference:  
 + [jSCSI github project](https://github.com/disy/jSCSI.git)
 + [jSCSI office website](http://jscsi.org)
 + [bytebuffer-cpp An implementation of ByteBuffer in C++](http://code.google.com/p/bytebuffer-cpp/)
++ [Protocol Data Unit (PDU) data format, see RFC3720 page 114](http://www.ietf.org/rfc/rfc3720.txt)
