@@ -1,0 +1,5 @@
+// AsynchronousMessageParse.h
+#ifndef __ASYNCHRONOUSMESSAGEPARSE.H__
+#define __ASYNCHRONOUSMESSAGEPARSE.H__
+
+#endif //__ASYNCHRONOUSMESSAGEPARSE.H__

@@ -1,0 +1,5 @@
+// SNACKRequestParser.h
+#ifndef __SNACKREQUESTPARSER_H__
+#define __SNACKREQUESTPARSER_H__
+
+#endif // __SNACKREQUESTPARSER_H__
