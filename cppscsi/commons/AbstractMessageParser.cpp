@@ -1,9 +1,9 @@
 #include "AbstractMessageParser.h"
 #include "ProtocolDataUnit.h"
 
-AbstractMessageParser::AbstractMessageParser(ProtocolDataUnit initProtocolDataUnit) {
+AbstractMessageParser::AbstractMessageParser(ProtocolDataUnit *pInitProtocolDataUnit) {
 
-	*m_protocolDataUnit = initProtocolDataUnit;
+	*m_protocolDataUnit = pInitProtocolDataUnit;
 }
 
 void AbstractMessageParser::deserializeBasicHeaderSegment(ByteBuffer pdu) {
@@ -43,20 +43,9 @@ void AbstractMessageParser::serializeBasicHeaderSegment(ByteBuffer dst, int offs
 	dst.putInt(serializeBytes44to47());
 }
 
-
-
 string AbstractMessageParser::toString() {
-#if 0
-	StringBuilder sb = new StringBuilder(Constants.LOG_INITIAL_SIZE);
-	sb.append("ParserType: ");
-	sb.append(AbstractMessageParser.class);
-
-	return sb.toString();
-#else
 	return "";
-#endif
 }
-
 
 long AbstractMessageParser::getLogicalUnitNumber() {
 
@@ -67,10 +56,9 @@ void AbstractMessageParser::setLogicalUnitNumber(long logicalUnitNumber) {
 	this.logicalUnitNumber = logicalUnitNumber;
 }
 
-
 void AbstractMessageParser::deserializeBytes8to11(int line) {
 
-	logicalUnitNumber = Utils.getUnsignedLong(line);
+	logicalUnitNumber = line;
 	logicalUnitNumber <<= Constants.FOUR_BYTES_SHIFT;
 }
 
@@ -79,10 +67,9 @@ void AbstractMessageParser::deserializeBytes12to15(int line) {
 	logicalUnitNumber |= Utils.getUnsignedLong(line);
 }
 
-
 int AbstractMessageParser::serializeBytes8to11() {
 
-	return (int)(logicalUnitNumber >>> Constants.FOUR_BYTES_SHIFT);
+	return (int)(logicalUnitNumber >> Constants.FOUR_BYTES_SHIFT);
 }
 
 int AbstractMessageParser::serializeBytes12to15() {

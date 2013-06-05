@@ -88,7 +88,7 @@ public:
     int initiatorTaskTag;
 
     /** The used parser for the messages. */
-    //AbstractMessageParser parser;
+    AbstractMessageParser *m_pMessageParser;
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------

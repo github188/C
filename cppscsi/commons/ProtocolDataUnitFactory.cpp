@@ -1,33 +1,48 @@
 #include "ProtocolDataUnitFactory.h"
 #include "ProtocolDataUnit.h"
+
 ProtocolDataUnitFactory::ProtocolDataUnitFactory() 
 {
-
+	m_pProtocolDataUnit = NULL;
 }
 
 ProtocolDataUnitFactory::~ProtocolDataUnitFactory() 
 {
-
+	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
 }
 
-ProtocolDataUnit ProtocolDataUnitFactory::create(string headerDigest, string dataDigest) 
+ProtocolDataUnit* ProtocolDataUnitFactory::create(string headerDigest, 
+		string dataDigest) 
 {
-	return new ProtocolDataUnit(digestFactory.create(headerDigest), digestFactory.create(dataDigest));
+	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
+
+	m_pProtocolDataUnit = new ProtocolDataUnit(
+			m_DigestFactory.create(headerDigest), 
+			m_DigestFactory.create(dataDigest));
+
+	return m_pProtocolDataUnit;
 }
 
-ProtocolDataUnit ProtocolDataUnitFactory::create(bool immediateFlag, bool finalFlag,
-        OperationCode operationCode, string headerDigest, string dataDigest) 
+ProtocolDataUnit* ProtocolDataUnitFactory::create(bool immediateFlag, 
+		bool finalFlag, OperationCode operationCode, string headerDigest, 
+		string dataDigest) 
 {
+	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
 
-	ProtocolDataUnit *p_protocolDataUnit = new ProtocolDataUnit(
-			digestFactory.create(headerDigest), 
-			digestFactory.create(dataDigest));
-
-	p_protocolDataUnit->getBasicHeaderSegment().setImmediate(immediateFlag);
-	p_protocolDataUnit->getBasicHeaderSegment().setFinal(finalFlag);
-	p_protocolDataUnit->getBasicHeaderSegment().setOperationCode(protocolDataUnit, 
+	m_pProtocolDataUnit = new ProtocolDataUnit(
+			m_DigestFactory.create(headerDigest), 
+			m_DigestFactory.create(dataDigest));
+#if 0
+	m_pProtocolDataUnit->getBasicHeaderSegment().setImmediate(immediateFlag);
+	m_pProtocolDataUnit->getBasicHeaderSegment().setFinal(finalFlag);
+	m_pProtocolDataUnit->getBasicHeaderSegment().setOperationCode(protocolDataUnit, 
 			operationCode);
+#endif
+	return m_pProtocolDataUnit;
+}
 
-	return protocolDataUnit;
+ProtocolDataUnit* ProtocolDataUnitFactory::GetProtocolDataUnitPtr()
+{
+	return m_pProtocolDataUnit;
 }
 

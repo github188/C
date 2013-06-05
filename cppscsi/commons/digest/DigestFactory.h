@@ -3,27 +3,27 @@
 using namespace std;
 
 /**
- * <h1>DigestFactory</h1>
- * <p/>
+ * DigestFactory
  * A factory to create instances of the supported digest algorithms.
- * 
- * @author Volker Wildi
  */
 class DigestFactory {
+private:
+	IDigest *m_pDigest;
 
 public:
 
     /**
-     * Constructor to create new, empty <code>DigestFactory</code> instance.
+     * Constructor to create new, empty DigestFactory instance.
      */
     DigestFactory(); 
+    ~DigestFactory(); 
 
     /**
-     * This method creates an <code>IDigest</code> instance of the given type.
+     * This method creates an IDigest instance of the given type.
      * 
      * @param digestName
      *            The name of the digest type.
-     * @return The <code>IDigest</code> instance of the given type.
+     * @return The IDigest instance of the given type.
      */
-    IDigest create(string digestName);
+    IDigest* create(const string &digestName);
 };

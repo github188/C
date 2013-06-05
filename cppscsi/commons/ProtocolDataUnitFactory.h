@@ -5,42 +5,30 @@
 
 #include <string>
 using namespace std;
-
-#if 0
-package org.jscsi.parser;
-
-import org.jscsi.parser.digest.DigestFactory;
-#endif
+#include "DigestFactory.h"
+#include "OperationCode.h"
 
 /**
- * <h1>ProtocolDataUnitFactory</h1>
- * <p/>
- * A factory to create all supported the <code>ProtocolDataUnit</code> instances.
- * 
- * @author Volker Wildi
+ * ProtocolDataUnitFactory
+ * A factory to create all supported the ProtocolDataUnit instances.
  */
-class DigestFactory;
 class ProtocolDataUnit;
 class ProtocolDataUnitFactory {
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
 private:
     /** The factory to create the supported digests. */
-    DigestFactory digestFactory = new DigestFactory();
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
+    DigestFactory m_DigestFactory;
+	ProtocolDataUnit *m_pProtocolDataUnit;
 
 public:
     /**
-     * Default constructor to create a new, empty <code>ProtocolDataUnitFactory</code> instance.
+     * Default constructor to create a new, empty ProtocolDataUnitFactory instance.
      */
     ProtocolDataUnitFactory();
+    ~ProtocolDataUnitFactory();
 
     /**
-     * This method creates a <code>ProtocolDataUnit</code> instance, which
+     * This method creates a ProtocolDataUnit instance, which
      * initializes only the digests to use, and returns it.
      * 
      * @param headerDigest
@@ -49,12 +37,12 @@ public:
      * @param dataDigest
      *            The name of the digest to use for the protection of the Data
      *            Segment.
-     * @return A new <code>ProtocolDataUnit</code> instance.
+     * @return A new ProtocolDataUnit instance.
      */
-    ProtocolDataUnit create(string headerDigest, string dataDigest);
+    ProtocolDataUnit* create(string headerDigest, string dataDigest);
 
     /**
-     * This method creates a <code>ProtocolDataUnit</code> instance, which is
+     * This method creates a ProtocolDataUnit instance, which is
      * initialized with the given settings, and returns it.
      * 
      * @param immediateFlag
@@ -69,10 +57,12 @@ public:
      * @param dataDigest
      *            The name of the digest to use for the protection of the Data
      *            Segment.
-     * @return A new <code>ProtocolDataUnit</code> instance.
+     * @return A new ProtocolDataUnit instance.
      */
-    ProtocolDataUnit create(bool immediateFlag, bool finalFlag,
+    ProtocolDataUnit* create(bool immediateFlag, bool finalFlag,
         OperationCode operationCode, string headerDigest, string dataDigest);
+
+    ProtocolDataUnit* GetProtocolDataUnitPtr();
 };
 
 #endif // __PROTOCOLDATAUNITFACTORY_H__

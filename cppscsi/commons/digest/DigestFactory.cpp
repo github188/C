@@ -1,19 +1,29 @@
+#include <stdio.h>
 #include "DigestFactory.h"
+#include "NullDigest.h"
+#include "CRC32CDigest.h"
 
 DigestFactory::DigestFactory() 
 {
+	m_pDigest = NULL;
 }
 
-IDigest DigestFactory::create(string digestName)
+DigestFactory::~DigestFactory() 
 {
-	IDigest digest;
+	if (m_pDigest) delete m_pDigest;
+}
+
+IDigest* DigestFactory::create(const string &digestName)
+{
+	if (m_pDigest) delete m_pDigest;
+
 	if (digestName.compare("None") == 0) {
-		//digest = new NullDigest();
+		m_pDigest = new NullDigest();
 	} else if (digestName.compare("CRC32C") == 0) {
-		//digest = new CRC32CDigest();
+		m_pDigest = new CRC32CDigest();
 	} else {
-		//throw new IllegalArgumentException("Digest Type (" + digestName + ") is unknown.");
+		printf("Digest Type (%s) is unknown\n", digestName.c_str());
 	}
 
-	return digest;
+	return m_pDigest;
 }

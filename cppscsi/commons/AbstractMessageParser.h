@@ -44,9 +44,6 @@ protected:
      */
     long logicalUnitNumber;
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * Default Contructor to create a new, empty AbstractMessageParser object.
      * 
@@ -54,13 +51,7 @@ protected:
      *            The reference <code>ProtocolDataUnit</code> instance, which
      *            contains this <code>AbstractMessageParser</code> object.
      */
-    AbstractMessageParser(ProtocolDataUnit initProtocolDataUnit) {
-
-        protocolDataUnit = initProtocolDataUnit;
-    }
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
+    AbstractMessageParser(ProtocolDataUnit *pInitProtocolDataUnit);
 
     /**
      * This method defines the order of the parsing process of the operation

@@ -4,6 +4,7 @@
 
 BasicHeaderSegment::BasicHeaderSegment()
 {
+	m_pMessageParser = new A
 }
 
 BasicHeaderSegment::~BasicHeaderSegment()
@@ -48,11 +49,11 @@ char BasicHeaderSegment::getTotalAHSLength()
 OperationCode BasicHeaderSegment::getOpCode()
 {
 }
-#if 0
-AbstractMessageParser BasicHeaderSegment::getParser()
+
+AbstractMessageParser* BasicHeaderSegment::getParser()
 {
+	return m_pMessageParser;
 }
-#endif
 
 void BasicHeaderSegment::setDataSegmentLength(int initDataSegmentLength)
 {

@@ -3,11 +3,10 @@
 #ifndef __PROTOCOLDATAUNIT_H__
 #define __PROTOCOLDATAUNIT_H__
 
-#include "ByteBuffer.h"
-#include "IDigest.h"
 #include <string>
 #include <vector>
 using namespace std;
+#include "IDigest.h"
 
 /**
  * <h1>ProtocolDataUnit</h1>
