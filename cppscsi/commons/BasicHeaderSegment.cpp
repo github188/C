@@ -4,7 +4,7 @@
 
 BasicHeaderSegment::BasicHeaderSegment()
 {
-	m_pMessageParser = new A
+	m_pMessageParser = NULL;
 }
 
 BasicHeaderSegment::~BasicHeaderSegment()
@@ -46,7 +46,7 @@ char BasicHeaderSegment::getTotalAHSLength()
 	return 0;
 }
 
-OperationCode BasicHeaderSegment::getOpCode()
+int BasicHeaderSegment::getOpCode()
 {
 }
 
@@ -75,17 +75,16 @@ void BasicHeaderSegment::setTotalAHSLength(byte initTotalAHSLength)
 {
 }
 
-void BasicHeaderSegment::setOperationCode(ProtocolDataUnit protocolDataUnit, OperationCode initOperationCode)
+void BasicHeaderSegment::setOperationCode(ProtocolDataUnit protocolDataUnit, int initOperationCode)
 {
 }
 
 string BasicHeaderSegment::toString()
 {
-	string strTmp = "";
-	return strTmp;
+	return "";
 }
 
-bool BasicHeaderSegment::equals(Object o)
+bool BasicHeaderSegment::equals(BasicHeaderSegment &o)
 {
 	return false;
 }

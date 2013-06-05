@@ -194,10 +194,10 @@ int ProtocolDataUnit::read(/*SocketChannel sChannel*/)
 
 	deserializeBasicHeaderSegment(bhs);
 	// check for further reading
-	if (getBasicHeaderSegment().getTotalAHSLength() > 0) {
+	if (getBasicHeaderSegment()->getTotalAHSLength() > 0) {
 		ByteBuffer ahs /*= ByteBuffer.allocate(m_pBasicHeaderSegment->getTotalAHSLength())*/;
 		int ahsLength = 0;
-		while (ahsLength < getBasicHeaderSegment().getTotalAHSLength()) {
+		while (ahsLength < getBasicHeaderSegment()->getTotalAHSLength()) {
 #if 0
 			ahsLength += sChannel.read(ahs);
 #endif
@@ -254,9 +254,9 @@ Iterator<AdditionalHeaderSegment> ProtocolDataUnit::getAdditionalHeaderSegments(
 }
 #endif
 
-BasicHeaderSegment getBasicHeaderSegment() {
+BasicHeaderSegment* getBasicHeaderSegment() {
 
-	return m_pBasicHeaderSegment->
+	return m_pBasicHeaderSegment;
 }
 
 ByteBuffer ProtocolDataUnit::getDataSegment() {
@@ -318,11 +318,8 @@ string ProtocolDataUnit::toString() {
 }
 #endif
 
+bool ProtocolDataUnit::equals(ProtocolDataUnit &o) {
 #if 0
-bool ProtocolDataUnit::equals(Object o) {
-	if (o instanceof ProtocolDataUnit == false)
-		return false;
-
 	ProtocolDataUnit oPdu = (ProtocolDataUnit)o;
 
 	Iterator<AdditionalHeaderSegment> ahs1 = oPdu.getAdditionalHeaderSegments();
@@ -335,15 +332,15 @@ bool ProtocolDataUnit::equals(Object o) {
 		ahs2.next();
 	}
 
-	if (oPdu.getBasicHeaderSegment().equals(this.getBasicHeaderSegment())
+	if (oPdu.getBasicHeaderSegment()->equals(this.getBasicHeaderSegment())
 			&& oPdu.getDataDigest().equals(this.getDataDigest())
 			&& oPdu.getHeaderDigest().equals(this.getHeaderDigest())
 			&& oPdu.getDataSegment().equals(this.getDataSegment()))
 		return true;
 
+#endif
 	return false;
 }
-#endif
 
 int ProtocolDataUnit::calcSize() {
 

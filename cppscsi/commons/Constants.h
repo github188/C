@@ -5,8 +5,8 @@
 /** Number of bits in a byte. */
 const int BITS_PER_BYTE = 8;
 
-/** The java data type int need <code>4</code> bytes. */
-const int BYTES_PER_INT = Integer.SIZE / BITS_PER_BYTE;
+/** The java data type int need 4 bytes. */
+const int BYTES_PER_INT = sizeof(int);
 
 /** The intial size of the StringBuilder used for logging. */
 const int LOG_INITIAL_SIZE = 50;
@@ -15,83 +15,83 @@ const int LOG_INITIAL_SIZE = 50;
 // --------------------------------------------------------------------------
 
 /**
- * Shift a given number by <code>8</code> bits or <code>1</code> byte.
+ * Shift a given number by 8 bits or 1 byte.
  */
 const int ONE_BYTE_SHIFT = 8;
 
 /**
- * Shift a given number by <code>16</code> bits or <code>2</code> bytes.
+ * Shift a given number by 16 bits or 2 bytes.
  */
 const int TWO_BYTES_SHIFT = 16;
 
 /**
- * Shift a given number by <code>24</code> bits or <code>3</code> bytes.
+ * Shift a given number by 24 bits or 3 bytes.
  */
 const int THREE_BYTES_SHIFT = 24;
 
 /**
- * Shift a given number by <code>32</code> bits or <code>4</code> bytes.
+ * Shift a given number by 32 bits or 4 bytes.
  */
 const int FOUR_BYTES_SHIFT = 32;
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
 
-/** Bit mask to extract the first byte of a <code>32</code> bit number. */
+/** Bit mask to extract the first byte of a 32 bit number. */
 const int FIRST_BYTE_MASK = 0xFF000000;
 
-/** Bit mask to extract the second byte of a <code>32</code> bit number. */
+/** Bit mask to extract the second byte of a 32 bit number. */
 const int SECOND_BYTE_MASK = 0x00FF0000;
 
-/** Bit mask to extract the third byte of a <code>32</code> bit number. */
+/** Bit mask to extract the third byte of a 32 bit number. */
 const int THIRD_BYTE_MASK = 0x0000FF00;
 
-/** Bit mask to extract the fourth byte of a <code>32</code> bit number. */
+/** Bit mask to extract the fourth byte of a 32 bit number. */
 const int FOURTH_BYTE_MASK = 0x000000FF;
 
 /**
- * Bit mask to extract the first two bytes of a <code>32</code> bit number.
+ * Bit mask to extract the first two bytes of a 32 bit number.
  */
 const int FIRST_TWO_BYTES_MASK = 0xFFFF0000;
 
 /**
- * Bit mask to extract the second and third bytes of a <code>32</code> bit
+ * Bit mask to extract the second and third bytes of a 32 bit
  * number.
  */
 const int MIDDLE_TWO_BYTES_SHIFT = 0x00FFFF00;
 
-/** Bit mask to extract the last bytes of a <code>32</code> bit number. */
+/** Bit mask to extract the last bytes of a 32 bit number. */
 const int LAST_TWO_BYTES_MASK = 0x0000FFFF;
 
 /**
- * Bit mask to extract the three last bytes of a <code>32</code> bit number.
+ * Bit mask to extract the three last bytes of a 32 bit number.
  */
 const int LAST_THREE_BYTES_MASK = 0x00FFFFFF;
 
 /**
- * Bit mask to extract the last four bytes of a <code>64</code> bit number.
+ * Bit mask to extract the last four bytes of a 64 bit number.
  */
 const long LAST_FOUR_BYTES_MASK = 0x00000000FFFFFFFFL;
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
 
-/** Reserved fields are marked as zeros in a <code>byte</code> data type. */
+/** Reserved fields are marked as zeros in a byte data type. */
 const byte RESERVED_BYTE = 0x00;
 
-/** Reserved fields are marked as zeros in a <code>short</code> data type. */
+/** Reserved fields are marked as zeros in a short data type. */
 const short RESERVED_SHORT = 0x0;
 
-/** Reserved fields are marked as zeros in a <code>integer</code> data type. */
+/** Reserved fields are marked as zeros in a integer data type. */
 const int RESERVED_INT = 0x0;
 
-/** Reserved fields are marked as zeros in a <code>long</code> data type. */
+/** Reserved fields are marked as zeros in a long data type. */
 const long RESERVED_LONG = 0x0L;
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------
 
-/** Bit mask to extract the continue flag of a <code>32</code> bit number. */
+/** Bit mask to extract the continue flag of a 32 bit number. */
 const int CONTINUE_FLAG_MASK = 0x00400000;
 
 /**

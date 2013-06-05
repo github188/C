@@ -39,7 +39,7 @@ public:
      *            Segment.
      * @return A new ProtocolDataUnit instance.
      */
-    ProtocolDataUnit* create(string headerDigest, string dataDigest);
+    ProtocolDataUnit* create(const string &headerDigest, const string &dataDigest);
 
     /**
      * This method creates a ProtocolDataUnit instance, which is
@@ -60,7 +60,7 @@ public:
      * @return A new ProtocolDataUnit instance.
      */
     ProtocolDataUnit* create(bool immediateFlag, bool finalFlag,
-        OperationCode operationCode, string headerDigest, string dataDigest);
+        int operationCode, const string &headerDigest, const string &dataDigest);
 
     ProtocolDataUnit* GetProtocolDataUnitPtr();
 };

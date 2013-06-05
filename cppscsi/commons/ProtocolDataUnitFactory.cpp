@@ -11,8 +11,8 @@ ProtocolDataUnitFactory::~ProtocolDataUnitFactory()
 	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
 }
 
-ProtocolDataUnit* ProtocolDataUnitFactory::create(string headerDigest, 
-		string dataDigest) 
+ProtocolDataUnit* ProtocolDataUnitFactory::create(const string &headerDigest, 
+		const string &dataDigest) 
 {
 	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
 
@@ -24,20 +24,20 @@ ProtocolDataUnit* ProtocolDataUnitFactory::create(string headerDigest,
 }
 
 ProtocolDataUnit* ProtocolDataUnitFactory::create(bool immediateFlag, 
-		bool finalFlag, OperationCode operationCode, string headerDigest, 
-		string dataDigest) 
+		bool finalFlag, int operationCode, const string &headerDigest, 
+		const string &dataDigest) 
 {
 	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
 
 	m_pProtocolDataUnit = new ProtocolDataUnit(
 			m_DigestFactory.create(headerDigest), 
 			m_DigestFactory.create(dataDigest));
-#if 0
+
 	m_pProtocolDataUnit->getBasicHeaderSegment().setImmediate(immediateFlag);
 	m_pProtocolDataUnit->getBasicHeaderSegment().setFinal(finalFlag);
 	m_pProtocolDataUnit->getBasicHeaderSegment().setOperationCode(protocolDataUnit, 
 			operationCode);
-#endif
+
 	return m_pProtocolDataUnit;
 }
 

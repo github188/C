@@ -5,44 +5,32 @@
 #include <string>
 using namespace std;
 
-#if 1
-    enum AdditionalHeaderSegmentType {
-        /**
-         * This type of AHS MUST NOT be used if the <code>CDBLength</code> is
-         * less than <code>17</code>. The length includes the reserved byte <code>3</code>.
-         */
-        EXTENDED_CDB = 1,
+enum AdditionalHeaderSegmentType {
+	/**
+	 * This type of AHS MUST NOT be used if the CDBLength is
+	 * less than 17. The length includes the reserved byte 3.
+	 */
+	EXTENDED_CDB = 1,
 
-        /**
-         * The Expected Bidirectional Read Data Length. But this is not good
-         * documented in the iSCSI Protocol (RFC3720).
-         */
-        EXPECTED_BIDIRECTIONAL_READ_DATA_LENGTH,
-    };
-#endif
+	/**
+	 * The Expected Bidirectional Read Data Length. But this is not good
+	 * documented in the iSCSI Protocol (RFC3720).
+	 */
+	EXPECTED_BIDIRECTIONAL_READ_DATA_LENGTH,
+};
+
 /**
- * <h1>AdditionalHeaderSegment</h1>
- * <p>
+ * AdditionalHeaderSegment
  * This class encapsulate an Additional Header Segment (AHS) defined in iSCSI Protocol (RFC3720).
- * <p>
  * It provides all methods to serialize and deserialize such an AHS. Further there are getter methods to
  * access the specific data, which is contained in this AHS.
- * 
- * @author Volker Wildi
  */
 class AdditionalHeaderSegment {
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
-     * Factor, which must be muliplied with the <code>totalAHSLength</code> contained in a
-     * <code>BasicHeaderSegment</code> object.
+     * Factor, which must be muliplied with the totalAHSLength contained in a
+     * BasicHeaderSegment object.
      */
     //const static int AHS_FACTOR = 4;
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
 
     /** Offset of the first complete line in the AHS specific field. */
     const static int EXTENDED_CDB_OFFSET = 1;
@@ -54,14 +42,14 @@ class AdditionalHeaderSegment {
     const static int EXPECTED_BIDIRECTIONAL_LENGTH = 0x0005;
 
     /**
-     * Length of the specific field <code>ByteBuffer</code>, which is expected,
-     * if the AHS type is the <code>AdditionalHeaderSegmentType.EXPECTED_BIDIRECTIONAL_READ_DATA_LENGTH</code>
+     * Length of the specific field ByteBuffer, which is expected,
+     * if the AHS type is the AdditionalHeaderSegmentType.EXPECTED_BIDIRECTIONAL_READ_DATA_LENGTH
      * .
      */
     const static int EXPECTED_BIDIRECTIONAL_SPECIFIC_FIELD_LENGTH = 5;
 
     /**
-     * This is the size (in bytes) of the <code>AHSLength</code> and the <code>AHSType</code>, which are also
+     * This is the size (in bytes) of the AHSLength and the AHSType, which are also
      * included in the serialized AHS form
      * of this object.
      */
@@ -79,10 +67,10 @@ class AdditionalHeaderSegment {
     short length;
 
     /**
-     * The type of this AHS. <br/>
+     * The type of this AHS.
      * @see AdditionalHeaderSegmentType
      */
-    AdditionalHeaderSegmentType type;
+    int type;
 
     /**
      * This array contains the informations, which are type specific fields.
@@ -105,7 +93,7 @@ public:
      * @param dst
      *            The destination array to write in.
      * @param offset
-     *            The start offset in <code>dst</code>.
+     *            The start offset in dst.
      * @return The length of used integers of the serialized form of this AHS
      *         object.
      * @throws InternetSCSIException
@@ -128,8 +116,8 @@ public:
     void deserialize(ByteBuffer pdu, int offset);
 
     /**
-     * Returns the length of this AHS object. Expected values are greater than <code>0</code> and a maximum of
-     * <code>65536</code>
+     * Returns the length of this AHS object. Expected values are greater than 0 and a maximum of
+     * 65536
      * 
      * @return The length of this AHS object.
      */
@@ -148,7 +136,7 @@ public:
      * 
      * @return The value of this AHS object.
      */
-    AdditionalHeaderSegmentType getType();
+    int getType();
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -161,7 +149,7 @@ public:
     string toString();
 
     /**
-     * Clears all the stored content of this <code>AdditionalHeaderSegment</code> object.
+     * Clears all the stored content of this AdditionalHeaderSegment object.
      */
     void clear();
 
@@ -169,7 +157,7 @@ public:
     // --------------------------------------------------------------------------
 
     /** {@inheritDoc} */
-    bool equals(Object o);
+    bool equals(AdditionalHeaderSegment &o);
 
     /**
      * This method checks the integrity of the this Additional Header Segment

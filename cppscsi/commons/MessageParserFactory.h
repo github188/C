@@ -29,6 +29,9 @@ import org.slf4j.LoggerFactory;
 * With this technique it minimizes the object creation process and affect the 
 * execution speed, too.
 */
+
+class ProtocolDataUnit;
+class AbstractMessageParser;
 class MessageParserFactory {
 public:
     /** Default constructor, which prevent a instance of this class. */
@@ -47,8 +50,8 @@ public:
 	 * @return The instance of the requested AbstractMessageParser.
 	 * @see org.jscsi.parser.OperationCode
 	 */
-    static AbstractMessageParser getParser(ProtocolDataUnit protocolDataUnit,
-        OperationCode operationCode);
+    AbstractMessageParser* getParser(ProtocolDataUnit protocolDataUnit,
+        int operationCode);
 
 private:
 	/**
@@ -62,8 +65,8 @@ private:
 	 * @return The instance of the requested AbstractMessageParser.
 	 * @see org.jscsi.parser.OperationCode
 	 */
-    static AbstractMessageParser createParser(ProtocolDataUnit protocolDataUnit,
-        OperationCode operationCode);
+    AbstractMessageParser* createParser(ProtocolDataUnit protocolDataUnit,
+        int operationCode);
 };
 
 #endif // __MESSAGEPARSERFACTORY_H__

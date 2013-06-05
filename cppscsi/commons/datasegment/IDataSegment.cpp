@@ -1,17 +1,18 @@
 #include "IDataSegment.h"
+
 int IDataSegment::deserialize(ByteBuffer src, int len)
 {
 	return 0;
 }
 
 /**
- * This method appends <code>len</code> bytes from the given <code>ByteBuffer</code> at the end of the
+ * This method appends len bytes from the given ByteBuffer at the end of the
  * data buffer of this instance.
  * 
  * @param src
- *            Source <code>ByteBuffer</code> object.
+ *            Source ByteBuffer object.
  * @param len
- *            The number of bytes to append from <code>src</code>.
+ *            The number of bytes to append from src.
  * @return The number of bytes of the complete data buffer of this instance.
  */
 int IDataSegment::append(ByteBuffer src, int len)
@@ -20,13 +21,13 @@ int IDataSegment::append(ByteBuffer src, int len)
 }
 
 /**
- * This method exports the data buffer to the given <code>ByteBuffer</code> object, which is padded to a
- * integer number of <code>4</code> byte words.
+ * This method exports the data buffer to the given ByteBuffer object, which is padded to a
+ * integer number of 4 byte words.
  * 
  * @param dst
- *            Destination <code>ByteBuffer</code> object.
+ *            Destination ByteBuffer object.
  * @param off
- *            Start position in <code>dst</code>, where to serialize.
+ *            Start position in dst, where to serialize.
  * @return The number of exported bytes (in bytes).
  */
 int IDataSegment::serialize(ByteBuffer dst, int off)
@@ -47,10 +48,10 @@ int IDataSegment::serialize(ByteBuffer dst, int off)
 //IDataSegmentIterator iterator();
 
 /**
- * Returns a <code>SettingsMap</code> instance of this <code>IDataSegment</code> instance. This is only
- * useful with a <code>TextParameterDataSegment</code> instance.
+ * Returns a SettingsMap instance of this IDataSegment instance. This is only
+ * useful with a TextParameterDataSegment instance.
  * 
- * @return The settings of this <code>TextParameterDataSegment</code> instance.
+ * @return The settings of this TextParameterDataSegment instance.
  * @throws InternetSCSIException
  *             if any violation of the iSCSI Standard occurs.
  */
@@ -71,7 +72,7 @@ void IDataSegment::clear()
 // --------------------------------------------------------------------------
 
 /**
- * Returns the length, which is really used by the <code>dataBuffer</code>.
+ * Returns the length, which is really used by the dataBuffer.
  * 
  * @return The really used length.
  */
@@ -81,8 +82,8 @@ int IDataSegment::getLength()
 }
 
 /**
- * Sets the data buffer to the given buffer <code>src</code>. Starting from
- * the position <code>offset</code> with length of <code>len</code>.
+ * Sets the data buffer to the given buffer src. Starting from
+ * the position offset with length of len.
  * 
  * @param src
  *            The buffer to read from.

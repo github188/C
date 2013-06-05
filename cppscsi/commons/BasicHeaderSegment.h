@@ -5,7 +5,6 @@
 #include <string>
 using namespace std;
 
-typedef int OperationCode;
 typedef unsigned char byte;
 typedef char* Object;
 
@@ -182,14 +181,14 @@ public:
      * 
      * @return The operation code of this BHS.
      */
-    //OperationCode getOpCode();
+    int getOpCode();
 
     /**
      * Returns a object of the used parser of this BHS.
      * 
      * @return The parser object to use for this PDU.
      */
-    AbstractMessageParser getParser();
+    AbstractMessageParser* getParser();
 
     /**
      * Set a new length for the data segment.
@@ -241,7 +240,7 @@ public:
      * @param initOperationCode
      *            The new operation code.
      */
-    void setOperationCode(ProtocolDataUnit protocolDataUnit, OperationCode initOperationCode);
+    void setOperationCode(ProtocolDataUnit protocolDataUnit, int initOperationCode);
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------
@@ -254,7 +253,7 @@ public:
     string toString();
 
     /** {@inheritDoc} */
-    bool equals(Object o);
+    bool equals(BasicHeaderSegment &o);
 
     /**
      * Clears all the stored content of this BasicHeaderSegment object.

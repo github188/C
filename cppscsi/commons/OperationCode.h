@@ -183,13 +183,11 @@ enum _OperationCode {
 	 * segment content may also be associated (in the data segment) with a
 	 * non-zero response code. In addition, the SCSI-Response PDU carries
 	 * information required for the proper operation of the iSCSI protocol:
-	 * <ul>
-	 * <li>The number of Data-In PDUs that a target has sent (to enable the initiator to check that all
-	 * have arrived).</li>
-	 * <li>StatSN - the Status Sequence Number on this connection</li>
-	 * <li>ExpCmdSN - the next Expected Command Sequence Number at the target.</li>
-	 * <li>MaxCmdSN - the maximum CmdSN acceptable at the target from this initiator.</li>
-	 * </ul>
+	 * The number of Data-In PDUs that a target has sent (to enable the initiator to check that all
+	 * have arrived).
+	 * StatSN - the Status Sequence Number on this connection
+	 * ExpCmdSN - the next Expected Command Sequence Number at the target.
+	 * MaxCmdSN - the maximum CmdSN acceptable at the target from this initiator.
 	 */
 	SCSI_RESPONSE = 0x21,
 
@@ -301,12 +299,10 @@ enum _OperationCode {
 	 * the LUN, they will enable the target to associate data with an R2T. R2T
 	 * also carries information required for proper operation of the iSCSI
 	 * protocol, such as:
-	 * <ul>
-	 * <li>R2TSN (to enable an initiator to detect a missing R2T)</li>
-	 * <li>StatSN</li>
-	 * <li>ExpCmdSN</li>
-	 * <li>MaxCmdSN</li>
-	 * </ul>
+	 * R2TSN (to enable an initiator to detect a missing R2T)
+	 * StatSN
+	 * ExpCmdSN
+	 * MaxCmdSN
 	 */
 	R2T = 0x31,
 

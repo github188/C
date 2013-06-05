@@ -8,48 +8,46 @@ AdditionalHeaderSegment::~AdditionalHeaderSegment()
 { 
 }
 
-int AdditionalHeaderSegment::serialize(ByteBuffer dst, int offset);
+int AdditionalHeaderSegment::serialize(ByteBuffer dst, int offset)
 { 
 	return 0;
 }
 
-void AdditionalHeaderSegment::deserialize(ByteBuffer pdu, int offset);
+void AdditionalHeaderSegment::deserialize(ByteBuffer pdu, int offset)
 { 
 }
 
-short AdditionalHeaderSegment::getLength();
+short AdditionalHeaderSegment::getLength()
 { 
 	return 0;
 }
 
-ByteBuffer AdditionalHeaderSegment::getSpecificField();
+ByteBuffer AdditionalHeaderSegment::getSpecificField()
 { 
 	ByteBuffer tmp;
 	return tmp;
 }
 
-AdditionalHeaderSegmentType AdditionalHeaderSegment::getType();
+int AdditionalHeaderSegment::getType()
 {
-	AdditionalHeaderSegmentType tmp;
-	return tmp;
+	return EXTENDED_CDB;
 }
 
-string AdditionalHeaderSegment::toString();
+string AdditionalHeaderSegment::toString()
 { 
-	string strTmp = "";
-	return strTmp;
+	return "";
 }
 
-void AdditionalHeaderSegment::clear();
+void AdditionalHeaderSegment::clear()
 { 
 }
 
-bool AdditionalHeaderSegment::equals(Object o);
+bool AdditionalHeaderSegment::equals(AdditionalHeaderSegment &o)
 { 
 	return false;
 }
 
-void AdditionalHeaderSegment::checkIntegrity();
+void AdditionalHeaderSegment::checkIntegrity()
 { 
 }
 

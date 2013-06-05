@@ -5,7 +5,7 @@
 enum _DataSegmentFormat {
 	TEXT = 1,
 	BINARY,
-	SCSI_RESPONSE,
+	//SCSI_RESPONSE,
 	NONE,
 } DataSegmentFormat;
 

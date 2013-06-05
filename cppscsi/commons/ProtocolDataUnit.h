@@ -9,12 +9,9 @@ using namespace std;
 #include "IDigest.h"
 
 /**
- * <h1>ProtocolDataUnit</h1>
- * <p>
+ * ProtocolDataUnit
  * This class encapsulates a Protocol Data Unit (PDU), which is defined in the 
  * iSCSI Standard (RFC 3720).
- * 
- * @author Volker Wildi
  */
 class BasicHeaderSegment;
 class AdditionalHeaderSegment;
@@ -28,9 +25,6 @@ private:
     /** The Log interface. */
     //static Logger LOGGER = LoggerFactory.getLogger(ProtocolDataUnit.class);
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /** The Basic Header Segment of this PDU. */
     BasicHeaderSegment *m_pBasicHeaderSegment;
 
@@ -39,9 +33,9 @@ private:
 
     /**
      * The (optional) Data Segment contains PDU associated data. Its payload
-     * effective length is provided in the BHS field - <code>DataSegmentLength</code>. The Data Segment is
+     * effective length is provided in the BHS field - DataSegmentLength. The Data Segment is
      * also padded to
-     * multiple of a <code>4</code> byte words.
+     * multiple of a 4 byte words.
      */
     ByteBuffer dataSegment;
 
@@ -50,15 +44,11 @@ private:
      * data, respectively. The digests, if present, are located, respectively,
      * after the header and PDU-specific data, and cover respectively the header
      * and the PDU data, each including the padding bytes, if any.
-     * <p>
-     * <b>The existence and type of digests are negotiated during the Login Phase. </b>
-     * <p>
+     * The existence and type of digests are negotiated during the Login Phase.
      * The separation of the header and data digests is useful in iSCSI routing applications, in which only
      * the header changes when a message is forwarded. In this case, only the header digest should be
      * recalculated.
-     * <p>
      * Digests are not included in data or header length fields.
-     * <p>
      * A zero-length Data Segment also implies a zero-length data-digest.
      */
 
@@ -69,9 +59,6 @@ private:
     IDigest dataDigest;
 
 public: 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * Default constructor, creates a new, empty ProtcolDataUnit object.
      * 
@@ -83,9 +70,6 @@ public:
      *            protection.
      */
     ProtocolDataUnit(IDigest initHeaderDigest, IDigest initDataDigest);
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
 
     /**
      * Serialize all informations of this PDU object to its byte representation.
@@ -106,7 +90,7 @@ public:
 
 private:
     /**
-     * Deserializes a given array starting from offset <code>0</code> and store
+     * Deserializes a given array starting from offset 0 and store
      * the informations in the BasicHeaderSegment object..
      * 
      * @param bhs
@@ -115,8 +99,8 @@ private:
     int deserializeBasicHeaderSegment(ByteBuffer bhs);
 
     /**
-     * Deserializes a array (starting from offset <code>0</code>) and store the
-     * informations to the <code>AdditionalHeaderSegment</code> object.
+     * Deserializes a array (starting from offset 0) and store the
+     * informations to the AdditionalHeaderSegment object.
      * 
      * @param pdu
      *            The array to read from.
@@ -126,10 +110,10 @@ private:
 
     /**
      * Deserializes a array (starting from the given offset) and store the
-     * informations to the <code>AdditionalHeaderSegment</code> object.
+     * informations to the AdditionalHeaderSegment object.
      * 
      * @param pdu
-     *            The <code>ByteBuffer</code> to read from.
+     *            The ByteBuffer to read from.
      * @param offset
      *            The offset to start from.
      * @return The length of the written bytes.
@@ -143,7 +127,7 @@ private:
      * @param dst
      *            The destination array to write in.
      * @param offset
-     *            The offset to start to write in <code>dst</code>.
+     *            The offset to start to write in dst.
      * @return The written length.
      */
     int serializeAdditionalHeaderSegments(ByteBuffer dst, int offset);
@@ -170,30 +154,28 @@ public:
      * @param dst
      *            The array to write in.
      * @param offset
-     *            The start offset to start from in <code>dst</code>.
+     *            The start offset to start from in dst.
      * @return The written length.
      */
     int serializeDataSegment(ByteBuffer dst, int offset);
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
 public:
     /**
-     * Writes this <code>ProtocolDataUnit</code> object to the given <code>SocketChannel</code>.
+     * Writes this ProtocolDataUnit object to the given SocketChannel.
      * 
      * @param sChannel
-     *            <code>SocketChannel</code> to write to.
+     *            SocketChannel to write to.
      * @return The number of bytes written, possibly zero.
      */
     int write(/*SocketChannel sChannel*/);
 
     /**
-     * Reads from the given <code>SocketChannel</code> all the neccassary bytes
+     * Reads from the given SocketChannel all the neccassary bytes
      * to fill this PDU.
      * 
      * @param sChannel
-     *            <code>SocketChannel</code> to read from.
-     * @return The number of bytes, possibly zero,or <code>-1</code> if the
+     *            SocketChannel to read from.
+     * @return The number of bytes, possibly zero,or -1 if the
      *         channel has reached end-of-stream
      */
     int read(/*SocketChannel sChannel*/);
@@ -202,9 +184,6 @@ public:
      * Clears all stored content of this ProtocolDataUnit object.
      */
     void clear();
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
 
     /**
      * Returns an iterator to all contained Additional Header Segment in this
@@ -226,7 +205,7 @@ public:
     /**
      * Gets the data segment in this PDU.
      * 
-     * @return The data segment of this <code>ProtocolDataUnit</code> object.
+     * @return The data segment of this ProtocolDataUnit object.
      */
     ByteBuffer getDataSegment();
 
@@ -236,7 +215,7 @@ public:
      * Sets a new data segment in this PDU.
      * 
      * @param chunk
-     *            The new data segment of this <code>ProtocolDataUnit</code> object.
+     *            The new data segment of this ProtocolDataUnit object.
      */
     //void setDataSegment(IDataSegmentChunk chunk);
 
@@ -270,24 +249,15 @@ public:
      */
     void setDataDigest(IDigest newDataDigest);
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /** {@inheritDoc} */
     //@Override
     //string toString();
 
-    // --------------------------------------------------------------------------
     /** {@inheritDoc} */
     //@Override
-    //bool equals(Object o);
-
-    // --------------------------------------------------------------------------
+    bool equals(ProtocolDataUnit &o);
 
 private:
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * Calculates the needed size (in bytes) of serializing this object.
      * 

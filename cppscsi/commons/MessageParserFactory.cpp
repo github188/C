@@ -1,6 +1,8 @@
 // MessageParserFactory.cpp
 #include "MessageParserFactory.h"
 #include "OperationCode.h"
+#include "AbstractMessageParser.h"
+#include "ProtocolDataUnit.h"
 
 MessageParserFactory::MessageParserFactory() {
 
@@ -21,8 +23,7 @@ MessageParserFactory::~MessageParserFactory() {
  * @return The instance of the requested AbstractMessageParser.
  * @see org.jscsi.parser.OperationCode
  */
-AbstractMessageParser MessageParserFactory::getParser(ProtocolDataUnit protocolDataUnit,
-		OperationCode operationCode) {
+AbstractMessageParser* MessageParserFactory::getParser( ProtocolDataUnit protocolDataUnit, int operationCode) {
 
 	return createParser(protocolDataUnit, operationCode);
 }
@@ -38,9 +39,8 @@ AbstractMessageParser MessageParserFactory::getParser(ProtocolDataUnit protocolD
  * @return The instance of the requested AbstractMessageParser.
  * @see org.jscsi.parser.OperationCode
  */
-AbstractMessageParser MessageParserFactory::createParser(ProtocolDataUnit protocolDataUnit,
-		OperationCode operationCode) {
-
+AbstractMessageParser* MessageParserFactory::createParser( ProtocolDataUnit protocolDataUnit, int operationCode) {
+#if 0
 	switch (operationCode) {
 		case LOGIN_REQUEST:
 			return new LoginRequestParser(protocolDataUnit);
@@ -78,4 +78,7 @@ AbstractMessageParser MessageParserFactory::createParser(ProtocolDataUnit protoc
 			return new SCSIResponseParser(protocolDataUnit);
 		default:
 	}
+#else
+	return NULL;
+#endif
 }

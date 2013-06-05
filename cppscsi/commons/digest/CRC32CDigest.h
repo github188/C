@@ -23,7 +23,7 @@ private:
 	const static int BITS_PER_BYTE = 8;
 
 	/** The java data type int need 4 bytes. */
-	const static int BYTES_PER_INT = sizeof(int) * BITS_PER_BYTE / BITS_PER_BYTE;
+	const static int BYTES_PER_INT = sizeof(int);
 
 	/** Bit mask to extract the fourth byte of a 32 bit number. */
 	const static int FOURTH_BYTE_MASK = 0x000000FF;
