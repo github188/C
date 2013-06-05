@@ -17,18 +17,9 @@ SRC= IDigest.cpp \
 
 OBJS := $(SRC:.cpp=.o)
 
-all: $(OBJS) 
+all: $(OBJS)
 
-IDigest.o: %.o:%.cpp
-	$(CC) -c $<
-
-NullDigest.o: %.o:%.cpp
-	$(CC) -c $<
-
-CRC32CDigest.o: %.o:%.cpp
-	$(CC) -c $<
-
-DigestFactory.o: %.o:%.cpp
+$(OBJS): %.o:%.cpp
 	$(CC) -c $<
 
 .PHONY: clean
