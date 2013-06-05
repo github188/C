@@ -7,11 +7,8 @@
 
 CC= g++
 
-ROOTDIR	= $(shell pwd)
-##SRC:=$(shell find $(ROOTDIR) -name '*.cpp')
-
 SRC= IDigest.cpp \
-	 NullDigest.cpp \
+     NullDigest.cpp \
      CRC32CDigest.cpp \
      DigestFactory.cpp
 
