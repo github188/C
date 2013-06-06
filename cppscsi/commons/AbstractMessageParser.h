@@ -14,26 +14,13 @@ using namespace std;
  * for a specific Protocol Data Unit (PDU) is inherited. The version of iSCSI 
  * Protocol is the RFC3720.
  */
-class ProtocolDataUnit;
 class AbstractMessageParser {
 
 private:
     /** Bit mask to extract the first operation code specific field. */
     const static int FIRST_SPECIFIC_FIELD_MASK = 0x007FFFFF;
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
 protected:
-    /**
-     * The read-only reference to the ProtocolDataUnit instance, which contains this
-     * AbstractMessageParser type.
-     */
-     ProtocolDataUnit *m_protocolDataUnit;
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * Some opcodes operate on a specific Logical Unit. The Logical Unit Number
      * (LUN) field identifies which Logical Unit. If the opcode does not relate
@@ -46,13 +33,10 @@ protected:
 
     /**
      * Default Contructor to create a new, empty AbstractMessageParser object.
-     * 
-     * @param initProtocolDataUnit
-     *            The reference ProtocolDataUnit instance, which
-     *            contains this AbstractMessageParser object.
      */
-    AbstractMessageParser(ProtocolDataUnit *pInitProtocolDataUnit);
+    AbstractMessageParser();
 
+public:
     /**
      * This method defines the order of the parsing process of the operation
      * code specific fields and check their integtity.
@@ -77,9 +61,6 @@ protected:
     void serializeBasicHeaderSegment(ByteBuffer dst, int offset);
 
 public:
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * If this method returns true, hen it indicates that the data
      * segment data is interpreted as binary data. Else the data segment data
@@ -116,9 +97,6 @@ public:
         return true;
     }
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * Returns the short version of the used sequence numbers of this parser
      * instance.
@@ -143,9 +121,6 @@ public:
         logicalUnitNumber = 0x0000000000000000L;
     }
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * This AbstractMessageParser instance affects the
      * incrementation of a Sequence Number counter.
@@ -159,10 +134,7 @@ public:
      * 
      * @return The Logical Unit Number of this object.
      */
-    inline long getLogicalUnitNumber() {
-
-        return logicalUnitNumber;
-    }
+    long getLogicalUnitNumber();
 
     /**
      * Set the Logical Unit Number (LUN) of this AbstractMessageParser object.
@@ -172,10 +144,7 @@ public:
      */
     void setLogicalUnitNumber(long logicalUnitNumber);
 
-protected:
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
+public:
     /**
      * Parse the bytes 1 till 3 in the Basic Header
      * Segment.
@@ -286,9 +255,6 @@ protected:
      */
     virtual void deserializeBytes44to47(int line) = 0;
 
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
-
     /**
      * Serializes the bytes 1 till 3 in the Basic
      * Header Segment.
@@ -370,9 +336,6 @@ protected:
      * @return The serialized byte representation.
      */
     virtual int serializeBytes44to47() = 0;
-
-    // --------------------------------------------------------------------------
-    // --------------------------------------------------------------------------
 
     /**
      * This method checks, if all parsed fields are valid. Because there are

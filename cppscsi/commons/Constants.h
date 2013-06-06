@@ -2,6 +2,10 @@
 #ifndef __CONSTANTS_H__
 #define __CONSTANTS_H__
 
+#ifndef byte
+#define byte unsigned char
+#endif 
+
 /** Number of bits in a byte. */
 const int BITS_PER_BYTE = 8;
 
@@ -10,9 +14,6 @@ const int BYTES_PER_INT = sizeof(int);
 
 /** The intial size of the StringBuilder used for logging. */
 const int LOG_INITIAL_SIZE = 50;
-
-// --------------------------------------------------------------------------
-// --------------------------------------------------------------------------
 
 /**
  * Shift a given number by 8 bits or 1 byte.
@@ -33,9 +34,6 @@ const int THREE_BYTES_SHIFT = 24;
  * Shift a given number by 32 bits or 4 bytes.
  */
 const int FOUR_BYTES_SHIFT = 32;
-
-// --------------------------------------------------------------------------
-// --------------------------------------------------------------------------
 
 /** Bit mask to extract the first byte of a 32 bit number. */
 const int FIRST_BYTE_MASK = 0xFF000000;
@@ -73,9 +71,6 @@ const int LAST_THREE_BYTES_MASK = 0x00FFFFFF;
  */
 const long LAST_FOUR_BYTES_MASK = 0x00000000FFFFFFFFL;
 
-// --------------------------------------------------------------------------
-// --------------------------------------------------------------------------
-
 /** Reserved fields are marked as zeros in a byte data type. */
 const byte RESERVED_BYTE = 0x00;
 
@@ -87,9 +82,6 @@ const int RESERVED_INT = 0x0;
 
 /** Reserved fields are marked as zeros in a long data type. */
 const long RESERVED_LONG = 0x0L;
-
-// --------------------------------------------------------------------------
-// --------------------------------------------------------------------------
 
 /** Bit mask to extract the continue flag of a 32 bit number. */
 const int CONTINUE_FLAG_MASK = 0x00400000;

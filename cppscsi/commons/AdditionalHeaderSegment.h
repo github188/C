@@ -26,12 +26,13 @@ enum AdditionalHeaderSegmentType {
  * access the specific data, which is contained in this AHS.
  */
 class AdditionalHeaderSegment {
+public:
     /**
      * Factor, which must be muliplied with the totalAHSLength contained in a
      * BasicHeaderSegment object.
      */
-    //const static int AHS_FACTOR = 4;
-
+    const static int AHS_FACTOR = 4;
+private:
     /** Offset of the first complete line in the AHS specific field. */
     const static int EXTENDED_CDB_OFFSET = 1;
 

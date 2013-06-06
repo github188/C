@@ -8,6 +8,7 @@ using namespace std;
 typedef unsigned char byte;
 typedef char* Object;
 
+class MessageParserFactory;
 class AbstractMessageParser;
 class ProtocolDataUnit;
 class BasicHeaderSegment {
@@ -37,6 +38,8 @@ private:
     /** Bit mask to extract the flag of a 32 bit number. */
     const static int FINAL_FLAG_MASK = 0x00800000;
 
+private:
+	MessageParserFactory *m_pMessageParserFactory;
 public:
     /**
      * For request PDUs, the I bit set to 1 is an
@@ -128,7 +131,7 @@ public:
      * @throws InternetSCSIException
      *             If any violation of the iSCSI-Standard emerge.
      */
-    int deserialize(ProtocolDataUnit protocolDataUnit, ByteBuffer src);
+    int deserialize(const ProtocolDataUnit &protocolDataUnit, ByteBuffer src);
 
     // --------------------------------------------------------------------------
     // --------------------------------------------------------------------------

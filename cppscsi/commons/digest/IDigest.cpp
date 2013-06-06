@@ -8,7 +8,7 @@ IDigest::~IDigest()
 {
 }
 
-void IDigest::update(char *data, int off, int len)
+void IDigest::update(ByteBuffer data, int off, int len)
 {
 }
 

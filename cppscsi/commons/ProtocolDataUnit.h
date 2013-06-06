@@ -7,6 +7,7 @@
 #include <vector>
 using namespace std;
 #include "IDigest.h"
+#include "ByteBuffer.h"
 
 /**
  * ProtocolDataUnit
@@ -200,7 +201,7 @@ public:
      * @return The Basic Header Segment.
      * @see BasicHeaderSegment
      */
-    BasicHeaderSegment getBasicHeaderSegment();
+    BasicHeaderSegment* getBasicHeaderSegment();
 
     /**
      * Gets the data segment in this PDU.
@@ -251,7 +252,7 @@ public:
 
     /** {@inheritDoc} */
     //@Override
-    //string toString();
+    string toString();
 
     /** {@inheritDoc} */
     //@Override

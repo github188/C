@@ -2,7 +2,7 @@
 
 #ifndef __IDIGEST_H__
 #define __IDIGEST_H__
-
+#include "ByteBuffer.h"
 
 /**
  * IDigest
@@ -24,7 +24,7 @@ public:
      * @param len
      *            Length of the used values. (Must be a multiple of 4 bytes)
      */
-    void update(char *data, int off, int len);
+    void update(ByteBuffer data, int off, int len);
 
     /**
      * This method validates the calculated checksum with the expected checksum.
