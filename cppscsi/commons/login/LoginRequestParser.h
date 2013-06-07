@@ -3,11 +3,37 @@
 #define __LOGINREQUESTPARSER_H__
 
 #include "InitiatorMessageParser.h"
-#include "Contants.h"
+#include "LoginStatus.h"
+#include "Constants.h"
+#include "ISID.h"
 
 #ifndef byte
 #define byte unsigned char
 #endif
+
+enum _LoginStage {
+	/** The Security Negotiation Flag. */
+    SECURITY_NEGOTIATION = 0,
+
+    /** The Login Operational Negotiation Flag. */
+    LOGIN_OPERATIONAL_NEGOTIATION = 1,
+
+    /** The Full Feature Phase Flag. */
+    FULL_FEATURE_PHASE = 3,	
+} LoginStage;
+
+
+/** Current Stage bit mask. */
+const int CSG_FLAG_MASK = 0x000C0000;
+
+/** Number of bits to shift to the current stage. */
+const int CSG_BIT_SHIFT = 18;
+
+/** Next Stage bit mask. */
+const int NSG_FLAG_MASK = 0x00030000;
+
+/** Bit mask, where the 11th and 12th bit are set. */
+const int BIT_11_AND_12_FLAG_MASK = 0x00300000;
 
 class LoginRequestParser : public InitiatorMessageParser {
 private:
@@ -15,10 +41,10 @@ private:
     bool continueFlag;
 
     /** The Current stage in the session. */
-    LoginStage currentStageNumber;
+    int currentStageNumber;
 
     /** The next stage in the session. */
-    LoginStage nextStageNumber;
+    int nextStageNumber;
 
     /** The maximum version number to support. */
     byte maxVersion;
@@ -43,13 +69,11 @@ public:
 	 * The reference ProtocolDataUnit instance, which
 	 * contains this LoginRequestParser subclass object.
 	 */
-    LoginRequestParser() {
-        initiatorSessionID = new ISID();
-    }
+    LoginRequestParser();
 
     string toString();
-
-    getDataSegmentFormat() {
+	string getShortInfo();
+    int getDataSegmentFormat() {
 
         return TEXT;
     }
@@ -115,7 +139,7 @@ public:
 	 * @return Number of the Current Stage.
 	 * @see org.jscsi.parser.login.LoginStage
 	 */
-	LoginStage getCurrentStageNumber() {
+	int getCurrentStageNumber() {
 
 		return currentStageNumber;
 	}
@@ -180,7 +204,7 @@ public:
 	 * @return The Number of the Next Stage.
 	 * @see org.jscsi.parser.login.LoginStage
 	 */
-	LoginStage getNextStageNumber() {
+	int getNextStageNumber() {
 
 		return nextStageNumber;
 	}
@@ -240,7 +264,7 @@ public:
 	 * The new Current Stage Number.
 	 * @see #getCurrentStageNumber()
 	 */
-	void setCurrentStageNumber(LoginStage initCSG) {
+	void setCurrentStageNumber(int initCSG) {
 
 		currentStageNumber = initCSG;
 	}
@@ -287,7 +311,7 @@ public:
 	 * The new Next Stage Number.
 	 * @see #getNextStageNumber()
 	 */
-	inline void setNextStageNumber(LoginStage initNSG) {
+	inline void setNextStageNumber(int initNSG) {
 
 		nextStageNumber = initNSG;
 	}

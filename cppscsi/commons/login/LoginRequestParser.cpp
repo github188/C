@@ -16,8 +16,8 @@ string LoginRequestParser::toString() {
 void LoginRequestParser::clear() {
 	continueFlag = false;
 
-	currentStageNumber = LoginStage.SECURITY_NEGOTIATION;
-	nextStageNumber = LoginStage.SECURITY_NEGOTIATION;
+	currentStageNumber = SECURITY_NEGOTIATION;
+	nextStageNumber = SECURITY_NEGOTIATION;
 
 	maxVersion = 0x00;
 	minVersion = 0x00;
@@ -31,10 +31,10 @@ void LoginRequestParser::clear() {
 
 void LoginRequestParser::deserializeBytes1to3(int line) {
 
-	continueFlag = Utils.isBitSet(line & CONTINUE_FLAG_MASK);
+	continueFlag = (line & CONTINUE_FLAG_MASK);
 
-	currentStageNumber =(line & LoginCSG_FLAG_MASK) >> LoginCSG_BIT_SHIFT;
-	nextStageNumber =((byte)((line & LoginNSG_FLAG_MASK) >>> TWO_BYTES_SHIFT));
+	currentStageNumber =(line & CSG_FLAG_MASK) >> CSG_BIT_SHIFT;
+	nextStageNumber =((byte)((line & NSG_FLAG_MASK) >> TWO_BYTES_SHIFT));
 
 	maxVersion = (byte)((line & THIRD_BYTE_MASK) >> ONE_BYTE_SHIFT);
 	minVersion = (byte)(line & FOURTH_BYTE_MASK);
@@ -43,7 +43,7 @@ void LoginRequestParser::deserializeBytes1to3(int line) {
 void LoginRequestParser::deserializeBytes12to15(int line) {
 
 	// use the logicalUnitNumber variable as temporary storage
-	long l = Utils.getUnsignedLong(line);
+	long l = line;
 
 	logicalUnitNumber |= l;
 	initiatorSessionID.deserialize(logicalUnitNumber);
@@ -53,7 +53,7 @@ void LoginRequestParser::deserializeBytes12to15(int line) {
 
 void LoginRequestParser::deserializeBytes20to23(int line) {
 
-	connectionID = (line & FIRST_TWO_BYTES_MASK) >>> TWO_BYTES_SHIFT;
+	connectionID = (line & FIRST_TWO_BYTES_MASK) >> TWO_BYTES_SHIFT;
 }
 
 void LoginRequestParser::checkIntegrity() {
@@ -64,22 +64,22 @@ void LoginRequestParser::checkIntegrity() {
 			break;
 		}
 
-		if (!bhs.isFinalFlag() && nextStageNumber != LoginStage.SECURITY_NEGOTIATION) {
+		if (!bhs.isFinalFlag() && nextStageNumber != SECURITY_NEGOTIATION) {
 			cout << "NextStageNumber is reserved, when the TransitFlag is not set." << endl;
 			break;
 		}
 
 		if (bhs.isFinalFlag()) {
-			if (currentStageNumber == LoginStage.SECURITY_NEGOTIATION) {
-				if (nextStageNumber == LoginStage.SECURITY_NEGOTIATION) {
+			if (currentStageNumber == SECURITY_NEGOTIATION) {
+				if (nextStageNumber == SECURITY_NEGOTIATION) {
 					cout << "This transition (SNP -> SNP) is not allowed." << endl;
 					break;
 				}
-			} else if (currentStageNumber == LoginStage.LOGIN_OPERATIONAL_NEGOTIATION) {
-				if (nextStageNumber == LoginStage.SECURITY_NEGOTIATION) {
+			} else if (currentStageNumber == LOGIN_OPERATIONAL_NEGOTIATION) {
+				if (nextStageNumber == SECURITY_NEGOTIATION) {
 					cout << "This transition (LONP -> SNP) is not allowed." << endl;
 					break;
-				} else if (nextStageNumber == LoginStage.LOGIN_OPERATIONAL_NEGOTIATION) {
+				} else if (nextStageNumber == LOGIN_OPERATIONAL_NEGOTIATION) {
 					cout << "This transition (LONP -> LONP) is not allowed." << endl;
 					break;
 				}
@@ -112,7 +112,7 @@ int LoginRequestParser::serializeBytes1to3() {
 	line |= maxVersion << ONE_BYTE_SHIFT;
 
 	line |= nextStageNumber.value() << TWO_BYTES_SHIFT;
-	line |= currentStageNumber.value() << LoginCSG_BIT_SHIFT;
+	line |= currentStageNumber.value() << CSG_BIT_SHIFT;
 
 	if (continueFlag) {
 		line |= CONTINUE_FLAG_MASK;

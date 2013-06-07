@@ -1,10 +1,9 @@
 #include <stdio.h>
 #include "BasicHeaderSegment.h"
-#include "ProtocolDataUnit.h"
-#include "AbstractMessageParser.h"
-#include "MessageParserFactory.h"
 #include "Constants.h"
 #include "OperationCode.h"
+#include "ProtocolDataUnit.h"
+#include "AbstractMessageParser.h"
 #include "MessageParserFactory.h"
 
 BasicHeaderSegment::BasicHeaderSegment()
