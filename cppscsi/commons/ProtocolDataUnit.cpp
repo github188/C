@@ -3,7 +3,6 @@
 #include "BasicHeaderSegment.h"
 #include "AdditionalHeaderSegment.h"
 #include "AbstractDataSegment.h"
-#include "AbstractMessageParser.h"
 
 ProtocolDataUnit::ProtocolDataUnit(IDigest initHeaderDigest, IDigest initDataDigest) 
 {
@@ -13,6 +12,8 @@ ProtocolDataUnit::ProtocolDataUnit(IDigest initHeaderDigest, IDigest initDataDig
 	headerDigest = initHeaderDigest;
 
 	dataDigest = initDataDigest;
+
+	m_pBasicHeaderSegment = new BasicHeaderSegment();
 }
 
 ByteBuffer ProtocolDataUnit::serialize() 

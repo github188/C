@@ -1,4 +1,6 @@
 #include "LoginRequestParser.h"
+#include "BasicHeaderSegment.h"
+#include "LoginStage.h"
 
 LoginRequestParser::LoginRequestParser() {
 
@@ -57,19 +59,22 @@ void LoginRequestParser::deserializeBytes20to23(int line) {
 }
 
 void LoginRequestParser::checkIntegrity() {
+#if 1
+	m_pProtocolDataUnit = NULL;
+#else
 	do {
-		BasicHeaderSegment bhs = protocolDataUnit.getBasicHeaderSegment();
-		if (bhs.isFinalFlag() && continueFlag) {
+		BasicHeaderSegment *pBHS = m_pProtocolDataUnit->getBasicHeaderSegment();
+		if (pBHS->isFinalFlag() && continueFlag) {
 			cout << "Transit and Continue Flag cannot be set at the same time." << endl;
 			break;
 		}
 
-		if (!bhs.isFinalFlag() && nextStageNumber != SECURITY_NEGOTIATION) {
+		if (!pBHS->isFinalFlag() && nextStageNumber != SECURITY_NEGOTIATION) {
 			cout << "NextStageNumber is reserved, when the TransitFlag is not set." << endl;
 			break;
 		}
 
-		if (bhs.isFinalFlag()) {
+		if (pBHS->isFinalFlag()) {
 			if (currentStageNumber == SECURITY_NEGOTIATION) {
 				if (nextStageNumber == SECURITY_NEGOTIATION) {
 					cout << "This transition (SNP -> SNP) is not allowed." << endl;
@@ -104,6 +109,7 @@ void LoginRequestParser::checkIntegrity() {
 		// message is checked correctly
 		return;
 	} while (false);
+#endif
 }
 
 int LoginRequestParser::serializeBytes1to3() {
@@ -111,8 +117,8 @@ int LoginRequestParser::serializeBytes1to3() {
 	int line = minVersion;
 	line |= maxVersion << ONE_BYTE_SHIFT;
 
-	line |= nextStageNumber.value() << TWO_BYTES_SHIFT;
-	line |= currentStageNumber.value() << CSG_BIT_SHIFT;
+	line |= nextStageNumber << TWO_BYTES_SHIFT;
+	line |= currentStageNumber << CSG_BIT_SHIFT;
 
 	if (continueFlag) {
 		line |= CONTINUE_FLAG_MASK;

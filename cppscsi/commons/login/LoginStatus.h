@@ -3,7 +3,7 @@
 #ifndef __LOGINSTATUS_H__
 #define __LOGINSTATUS_H__
 
-enum _LoginStatus {
+enum LoginStatus {
 	SUCCESS = 0x0000,
 
 	/**
@@ -94,6 +94,6 @@ enum _LoginStatus {
 	 * The target has insufficient session, connection, or other resources.
 	 */
 	OUT_OF_RESOURCES = 0x0302,
-} LoginStatus;
+};
 
 #endif // __LOGINSTATUS_H__

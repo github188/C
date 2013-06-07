@@ -11,7 +11,7 @@ ProtocolDataUnitFactory::~ProtocolDataUnitFactory()
 {
 	if (m_pProtocolDataUnit) delete m_pProtocolDataUnit;
 }
-
+#if 0
 ProtocolDataUnit* ProtocolDataUnitFactory::create(const string &headerDigest, 
 		const string &dataDigest) 
 {
@@ -46,4 +46,4 @@ ProtocolDataUnit* ProtocolDataUnitFactory::GetProtocolDataUnitPtr()
 {
 	return m_pProtocolDataUnit;
 }
-
+#endif

@@ -14,6 +14,7 @@ using namespace std;
  * for a specific Protocol Data Unit (PDU) is inherited. The version of iSCSI 
  * Protocol is the RFC3720.
  */
+class ProtocolDataUnit;
 class AbstractMessageParser {
 
 private:
@@ -21,6 +22,12 @@ private:
     const static int FIRST_SPECIFIC_FIELD_MASK = 0x007FFFFF;
 
 protected:
+	/**
+     * The read-only reference to the ProtocolDataUnit instance, which contains this
+     * AbstractMessageParser type.
+     */
+    ProtocolDataUnit *m_pProtocolDataUnit;
+
     /**
      * Some opcodes operate on a specific Logical Unit. The Logical Unit Number
      * (LUN) field identifies which Logical Unit. If the opcode does not relate
@@ -35,6 +42,7 @@ protected:
      * Default Contructor to create a new, empty AbstractMessageParser object.
      */
     AbstractMessageParser();
+    AbstractMessageParser(ProtocolDataUnit *pInitProtocolDataUnit);
 
 public:
     /**
@@ -69,7 +77,7 @@ public:
      * @return Returns a format defined by the DataSegmentFormat enumeration.
      * @see DataSegmentFormat
      */
-    virtual int getDataSegmentFormat() = 0;
+    virtual DataSegmentFormat  getDataSegmentFormat() = 0;
 
     /**
      * If this method returns true, it indicates that this derived

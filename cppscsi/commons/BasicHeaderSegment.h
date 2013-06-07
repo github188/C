@@ -5,9 +5,6 @@
 #include <string>
 using namespace std;
 
-typedef unsigned char byte;
-typedef char* Object;
-
 class MessageParserFactory;
 class AbstractMessageParser;
 class ProtocolDataUnit;
@@ -232,7 +229,7 @@ public:
      * @param initTotalAHSLength
      *            The new length.
      */
-    void setTotalAHSLength(byte initTotalAHSLength);
+    void setTotalAHSLength(unsigned char initTotalAHSLength);
 
     /**
      * Set a new operation code for this BHS object.

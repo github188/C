@@ -7,7 +7,9 @@
 
 CC= g++
 
-SRC= LoginRequestParser.cpp
+SRC= LoginRequestParser.cpp \
+     LoginResponseParser.cpp
+
 FLAGS = -I../ -I../common
 
 OBJS := $(SRC:.cpp=.o)

@@ -3,7 +3,6 @@
 #include "Constants.h"
 #include "OperationCode.h"
 #include "ProtocolDataUnit.h"
-#include "AbstractMessageParser.h"
 #include "MessageParserFactory.h"
 
 BasicHeaderSegment::BasicHeaderSegment()
@@ -47,6 +46,7 @@ int BasicHeaderSegment::serialize(ByteBuffer dst, int offset)
 	return BHS_FIXED_SIZE;	
 }
 
+#endif 
 int BasicHeaderSegment::deserialize(const ProtocolDataUnit &protocolDataUnit, ByteBuffer src)
 {
 	if (src.bytesRemaining() < BHS_FIXED_SIZE) {
@@ -73,7 +73,6 @@ int BasicHeaderSegment::deserialize(const ProtocolDataUnit &protocolDataUnit, By
 
 	return BHS_FIXED_SIZE;	
 }
-#endif 
 int BasicHeaderSegment::getDataSegmentLength()
 {
 	return dataSegmentLength;
@@ -130,7 +129,7 @@ void BasicHeaderSegment::setInitiatorTaskTag(int initInitiatorTaskTag)
 	initiatorTaskTag = initInitiatorTaskTag;
 }
 
-void BasicHeaderSegment::setTotalAHSLength(byte initTotalAHSLength)
+void BasicHeaderSegment::setTotalAHSLength(unsigned char initTotalAHSLength)
 {
 	totalAHSLength = initTotalAHSLength;
 }

@@ -29,6 +29,7 @@ public:
 	 * contains this InitiatorMessageParser object.
 	 */
 	InitiatorMessageParser();
+	InitiatorMessageParser(ProtocolDataUnit *pInitProtocolDataUnit);
 
 public: 
 	string getShortInfo();

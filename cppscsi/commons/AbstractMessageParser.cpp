@@ -3,7 +3,10 @@
 #include "Constants.h"
 
 AbstractMessageParser::AbstractMessageParser() {
+}
 
+AbstractMessageParser::AbstractMessageParser(ProtocolDataUnit *pInitProtocolDataUnit) {
+	m_pProtocolDataUnit = pInitProtocolDataUnit;
 }
 
 void AbstractMessageParser::deserializeBasicHeaderSegment(ByteBuffer pdu) {

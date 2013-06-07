@@ -4,36 +4,13 @@
 
 #include "InitiatorMessageParser.h"
 #include "LoginStatus.h"
+#include "LoginConstants.h"
 #include "Constants.h"
 #include "ISID.h"
 
 #ifndef byte
 #define byte unsigned char
 #endif
-
-enum _LoginStage {
-	/** The Security Negotiation Flag. */
-    SECURITY_NEGOTIATION = 0,
-
-    /** The Login Operational Negotiation Flag. */
-    LOGIN_OPERATIONAL_NEGOTIATION = 1,
-
-    /** The Full Feature Phase Flag. */
-    FULL_FEATURE_PHASE = 3,	
-} LoginStage;
-
-
-/** Current Stage bit mask. */
-const int CSG_FLAG_MASK = 0x000C0000;
-
-/** Number of bits to shift to the current stage. */
-const int CSG_BIT_SHIFT = 18;
-
-/** Next Stage bit mask. */
-const int NSG_FLAG_MASK = 0x00030000;
-
-/** Bit mask, where the 11th and 12th bit are set. */
-const int BIT_11_AND_12_FLAG_MASK = 0x00300000;
 
 class LoginRequestParser : public InitiatorMessageParser {
 private:
@@ -73,8 +50,8 @@ public:
 
     string toString();
 	string getShortInfo();
-    int getDataSegmentFormat() {
 
+    DataSegmentFormat getDataSegmentFormat() {
         return TEXT;
     }
 
