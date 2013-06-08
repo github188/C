@@ -3,6 +3,8 @@
 #include "OperationCode.h"
 #include "AbstractMessageParser.h"
 #include "ProtocolDataUnit.h"
+#include "LoginRequestParser.h"
+#include "LoginResponseParser.h"
 
 MessageParserFactory::MessageParserFactory() {
 
@@ -79,6 +81,14 @@ AbstractMessageParser* MessageParserFactory::createParser( ProtocolDataUnit prot
 		default:
 	}
 #else
+	switch (operationCode) {
+		case LOGIN_REQUEST:
+			return new LoginRequestParser(&protocolDataUnit);
+		case LOGIN_RESPONSE:
+			return new LoginResponseParser(&protocolDataUnit);
+		default:
+			break;
+	}
 	return NULL;
 #endif
 }

@@ -8,7 +8,8 @@
 CC= g++
 
 SRC= LoginRequestParser.cpp \
-     LoginResponseParser.cpp
+     LoginResponseParser.cpp \
+	 ISID.cpp
 
 FLAGS = -I../ -I../common
 

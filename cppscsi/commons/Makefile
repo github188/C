@@ -21,6 +21,7 @@ INCPRG  =-I$(INCPATH) \
          -I$(INCPATH)/common \
          -I$(INCPATH)/digest \
 		 -I$(INCPATH)/datasegment \
+		 -I$(INCPATH)/login
 		
 INCDIR  = $(INCPRG)
 
@@ -30,15 +31,25 @@ CFLAGS += $(INCDIR)
 SOURCES:=$(shell find $(ROOTDIR) -maxdepth 1 -name '*.cpp' -o -name '*.c')
 CPPSRC :=$(notdir $(SOURCES))
 OBJECTS:=$(CPPSRC:.cpp=.o)
-OBJS_OTHER := ./common/ByteBuffer.o \
-              ./digest/IDigest.o \
-			  ./digest/DigestFactory.o \
-			  ./digest/NullDigest.o \
-			  ./digest/CRC32CDigest.o
+
+# search all subdirs
+#subdirs := $(sort $(subst /,,$(dir $(wildcard */*))))
+subdirs := ./common \
+           ./digest \
+		   ./data \
+		   ./datasegment \
+		   ./login
+
+# generate subdirs object name
+OBJS_OTHER_SRC := $(shell find $(subdirs) -name '*.cpp')
+OBJS_OTHER := $(OBJS_OTHER_SRC:.cpp=.o)
 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
+	@echo "**************** build subdir ****************"
+	$(foreach N,$(subdirs),make -C $(N);)
+	@echo "**************** link target ****************"
 	$(CC) -o $(TARGET) $(OBJECTS) $(OBJS_OTHER) $(SHARLIB) $(CFLAGS)
 
 $(OBJECTS): %.o:%.cpp
@@ -46,4 +57,5 @@ $(OBJECTS): %.o:%.cpp
 
 .PHONY: clean
 clean:
-	rm -f *.o $(TARGET) $(OBJS_OTHER)
+	$(foreach N,$(subdirs),make -C $(N) clean;)
+	rm -f *.o $(TARGET) 

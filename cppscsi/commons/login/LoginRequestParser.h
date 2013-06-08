@@ -47,6 +47,7 @@ public:
 	 * contains this LoginRequestParser subclass object.
 	 */
     LoginRequestParser();
+    LoginRequestParser(ProtocolDataUnit *pInitProtocolDataUnit);
 
     string toString();
 	string getShortInfo();

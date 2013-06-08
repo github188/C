@@ -6,6 +6,10 @@ LoginRequestParser::LoginRequestParser() {
 
 }
 
+LoginRequestParser::LoginRequestParser(ProtocolDataUnit *pInitProtocolDataUnit) {
+	m_pProtocolDataUnit = pInitProtocolDataUnit;
+}
+
 string LoginRequestParser::getShortInfo() {
 
 	return "";
