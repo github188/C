@@ -7,6 +7,8 @@
 
 CC= g++
 
+FLAGS += -I../common
+
 SRC= IDigest.cpp \
      NullDigest.cpp \
      CRC32CDigest.cpp \
@@ -17,7 +19,7 @@ OBJS := $(SRC:.cpp=.o)
 all: $(OBJS)
 
 $(OBJS): %.o:%.cpp
-	$(CC) -c $<
+	$(CC) -c $< $(FLAGS)
 
 .PHONY: clean
 clean:

@@ -20,23 +20,30 @@ INCPATH = $(ROOTDIR)
 INCPRG  =-I$(INCPATH) \
          -I$(INCPATH)/common \
          -I$(INCPATH)/digest \
+		 -I$(INCPATH)/datasegment \
 		
 INCDIR  = $(INCPRG)
 
 CFLAGS += $(INCDIR)
 
-SOURCES:=$(shell find $(ROOTDIR) -name '*.cpp' -o -name '*.c')
+#SOURCES:=$(shell find $(ROOTDIR) -name '*.cpp' -o -name '*.c')
+SOURCES:=$(shell find $(ROOTDIR) -maxdepth 1 -name '*.cpp' -o -name '*.c')
 CPPSRC :=$(notdir $(SOURCES))
 OBJECTS:=$(CPPSRC:.cpp=.o)
+OBJS_OTHER := ./common/ByteBuffer.o \
+              ./digest/IDigest.o \
+			  ./digest/DigestFactory.o \
+			  ./digest/NullDigest.o \
+			  ./digest/CRC32CDigest.o
 
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) -o $(TARGET) $(OBJECTS) $(SHARLIB)
+	$(CC) -o $(TARGET) $(OBJECTS) $(OBJS_OTHER) $(SHARLIB) $(CFLAGS)
 
-$(OBJECTS):
-	$(CC) $(CFLAGS) -c $< $(SOURCES)
+$(OBJECTS): %.o:%.cpp
+	$(CC) -c $< $(CFLAGS)
 
 .PHONY: clean
 clean:
-	rm -f *.o $(TARGET)
+	rm -f *.o $(TARGET) $(OBJS_OTHER)

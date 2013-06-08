@@ -100,6 +100,6 @@ public:
      */
     int setDataBuffer(ByteBuffer src, int off, int len);
 
-}
+};
 
 #endif // __IDATASEGMENT_H__

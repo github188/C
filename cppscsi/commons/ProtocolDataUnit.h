@@ -8,6 +8,7 @@
 using namespace std;
 #include "IDigest.h"
 #include "ByteBuffer.h"
+#include "AdditionalHeaderSegment.h"
 
 /**
  * ProtocolDataUnit
@@ -21,7 +22,7 @@ class ProtocolDataUnit {
 private:
 
     /** The initial size of the Additional Header Segment. */
-    static int AHS_INITIAL_SIZE;
+    int AHS_INITIAL_SIZE;
 
     /** The Log interface. */
     //static Logger LOGGER = LoggerFactory.getLogger(ProtocolDataUnit.class);
@@ -70,6 +71,7 @@ public:
      *            The instance of the digest to use for the Data Segment
      *            protection.
      */
+    ProtocolDataUnit();
     ProtocolDataUnit(IDigest initHeaderDigest, IDigest initDataDigest);
 
     /**

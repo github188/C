@@ -4,6 +4,11 @@
 #include "AdditionalHeaderSegment.h"
 #include "AbstractDataSegment.h"
 
+ProtocolDataUnit::ProtocolDataUnit()
+{
+    AHS_INITIAL_SIZE = 0;
+}
+
 ProtocolDataUnit::ProtocolDataUnit(IDigest initHeaderDigest, IDigest initDataDigest) 
 {
 

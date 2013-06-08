@@ -1,9 +1,10 @@
 #ifndef __BASICHEADERSEGMENT_H__
 #define __BASICHEADERSEGMENT_H__
 
-#include "ByteBuffer.h"
 #include <string>
 using namespace std;
+#include "ByteBuffer.h"
+#include "AbstractMessageParser.h"
 
 class MessageParserFactory;
 class AbstractMessageParser;

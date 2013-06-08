@@ -16,7 +16,6 @@ BasicHeaderSegment::~BasicHeaderSegment()
 	if (m_pMessageParserFactory) delete m_pMessageParserFactory;
 }
 
-#if 0
 int BasicHeaderSegment::serialize(ByteBuffer dst, int offset)
 {
 	// has the destination array enough space to store this basic header
@@ -46,7 +45,6 @@ int BasicHeaderSegment::serialize(ByteBuffer dst, int offset)
 	return BHS_FIXED_SIZE;	
 }
 
-#endif 
 int BasicHeaderSegment::deserialize(const ProtocolDataUnit &protocolDataUnit, ByteBuffer src)
 {
 	if (src.bytesRemaining() < BHS_FIXED_SIZE) {
@@ -68,7 +66,7 @@ int BasicHeaderSegment::deserialize(const ProtocolDataUnit &protocolDataUnit, By
 
 	//src.rewind();
 
-	m_pMessageParser = m_MessageParserFactory.getParser(protocolDataUnit, operationCode);
+	m_pMessageParser = m_pMessageParserFactory->getParser(protocolDataUnit, operationCode);
 	m_pMessageParser->deserializeBasicHeaderSegment(src);
 
 	return BHS_FIXED_SIZE;	

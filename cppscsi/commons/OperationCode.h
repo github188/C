@@ -2,7 +2,7 @@
 #ifndef __OPERATIONCODE_H__
 #define __OPERATIONCODE_H__
 
-enum _OperationCode {
+enum OperationCode {
 
 	// --------------------------------------------------------------------------
 	// The initiator operation codes
@@ -321,6 +321,6 @@ enum _OperationCode {
 	 */
 	REJECT = 0x3F,
 
-} OperationCode;
+};
 
 #endif // __OPERATIONCODE_H__
