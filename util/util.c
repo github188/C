@@ -7,6 +7,7 @@
 #include <ctype.h>
 #include <sys/types.h>
 #include <sys/time.h>
+#include <time.h> 
 
 /*
  * code from nmap 3.20
@@ -137,3 +138,30 @@ int get_random_bytes(void *buf, int numbytes) {
 	bytesleft = 0;
 	return get_random_bytes((char *)buf + tmp, numbytes - tmp);
 }
+
+/*
+ * Func: check work time
+ * Para:
+ *       work_time      work time, unit: microsecond
+ *       interval_time  interval time, unit: second 
+ * Ret : 
+ *       if cur_time - work_time > interval_time, return 1
+ *       else return 0
+ */
+int check_work_time(long *work_time, const int interval_time)
+{
+	long cur_time;
+	struct timeval t_cur; 
+
+	gettimeofday(&t_cur, NULL); 
+	cur_time = ((long)t_cur.tv_sec)*1000 + (long)t_cur.tv_usec/1000; 
+
+	if ( (cur_time - *work_time) > interval_time*1000 )
+	{
+		*work_time = cur_time;
+		return 1;
+	}
+
+	return 0;
+}
+
