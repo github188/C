@@ -156,12 +156,24 @@ int check_work_time(long *work_time, const int interval_time)
 	gettimeofday(&t_cur, NULL); 
 	cur_time = ((long)t_cur.tv_sec)*1000 + (long)t_cur.tv_usec/1000; 
 
-	if ( (cur_time - *work_time) > interval_time*1000 )
-	{
+	if ( (cur_time - *work_time) > interval_time*1000 ) {
 		*work_time = cur_time;
 		return 1;
 	}
 
 	return 0;
+}
+
+/*
+ * print buffer
+ */
+void print_buf(char *buf, int len)
+{
+	int i=0;
+	for (; i<len; i++) {
+		if ((i+1)%9 == 0) printf("\n");
+		else printf("0x%02d ", buf[i]);
+	}
+	printf("\n");
 }
 
