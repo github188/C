@@ -50,21 +50,15 @@ BOOL thr_thread_create(thr_THREAD* handle, thr_THREAD_FUNC func, void *arg)
 #if defined WIN32
 	*handle = (thr_THREAD)_beginthreadex(NULL, 0, func, arg, 0, NULL);
 	if (0 == *handle)
-	{
 		return FALSE;
-	}
 
 #elif defined LINUX
 	if (handle == NULL)
-	{
 		return FALSE;
-	}
 	memset(handle, 0, sizeof(thr_THREAD));
 
 	if (pthread_create(handle, NULL, func, arg))
-	{
 		return FALSE;
-	}
 
 #elif defined VXWORKS
 
@@ -74,43 +68,30 @@ BOOL thr_thread_create(thr_THREAD* handle, thr_THREAD_FUNC func, void *arg)
 	struct sched_param schedparam;
 
 	if (handle == NULL)
-	{
 		return FALSE;
-	}
+
 	memset(handle, 0, sizeof(thr_THREAD));
 	memset(&attr, 0, sizeof(attr));
 	memset(&schedparam, 0, sizeof(schedparam));
 
 	if (pthread_attr_init(&attr))
-	{
 		return FALSE;
-	}
 
 	if (pthread_attr_setstacksize(&attr, 512 * 1024))
-	{
 		return FALSE;
-	}
 
 	if (pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED))
-	{
 		return FALSE;
-	}
 
 	if (pthread_attr_setschedpolicy(&attr, SCHED_FIFO))
-	{
 		return FALSE;
-	}
 
 	schedparam.sched_priority = thr_THREAD_PRIORITY_INVXWORKS;
 	if (pthread_attr_setschedparam(&attr, &schedparam))
-	{
 		return FALSE;
-	}
 
 	if (pthread_create(handle, &attr, func, arg))
-	{
 		return FALSE;
-	}
 
 #endif
 
@@ -159,16 +140,12 @@ int thr_thread_set_priority(thr_THREAD handle, int priority)
 
 	memset(&schedparam, 0, sizeof(schedparam));
 	if (pthread_getschedparam(handle, &policy, &schedparam))
-	{
 		return thr_THREAD_RET_SETPRI;
-	}
 
 	memset(&schedparam, 0, sizeof(schedparam));
 	schedparam.sched_priority = priority;
 	if (pthread_setschedparam(handle, policy, &schedparam))
-	{
 		return thr_THREAD_RET_SETPRI;
-	}
 
 #endif
 
@@ -183,10 +160,7 @@ int thr_thread_reschedule()
 
 #elif defined VXWORKS
 	if (ERROR == taskDelay(0))
-	{
 		ERROR_PRINT("taskDelay return error!");
-	}
-
 #endif
 
 	return 0;
@@ -197,27 +171,19 @@ int thr_mutex_init(thr_MUTEX* handle)
 #if defined WIN32
 	*handle = CreateMutex(0, FALSE, 0);
 	if (NULL == *handle)
-	{
 		return thr_MUTEX_RET_CREATEFAILED;
-	}
 
 #elif defined LINUX
 	if (pthread_mutex_init(handle, NULL))
-	{
 		return thr_MUTEX_RET_CREATEFAILED;
-	}
 
 #elif defined VXWORKS
 	if (handle == NULL)
-	{
 		return thr_MUTEX_RET_CREATEFAILED;
-	}
 	memset(handle, 0, sizeof(thr_MUTEX));
 
 	if (pthread_mutex_init(handle, NULL))
-	{
 		return thr_MUTEX_RET_CREATEFAILED;
-	}
 
 #endif
 
@@ -250,21 +216,15 @@ int thr_mutex_lock(thr_MUTEX* handle)
 {
 #if defined WIN32
 	if (WaitForSingleObject(*handle, INFINITE) == WAIT_FAILED)
-	{
 		return thr_MUTEX_RET_LOCKERROR;
-	}
 
 #elif defined LINUX
 	if (pthread_mutex_lock(handle))
-	{
 		return thr_MUTEX_RET_LOCKERROR;
-	}
 
 #elif defined VXWORKS
 	if (pthread_mutex_lock(handle))
-	{
 		return thr_MUTEX_RET_LOCKERROR;
-	}
 
 #endif
 
@@ -275,21 +235,15 @@ int thr_mutex_unlock(thr_MUTEX* handle)
 {
 #if defined WIN32
 	if (!ReleaseMutex(*handle))
-	{
 		return thr_MUTEX_RET_UNLOCKERROR;
-	}
 
 #elif defined LINUX
 	if (pthread_mutex_unlock(handle))
-	{
 		return thr_MUTEX_RET_UNLOCKERROR;
-	}
 
 #elif defined VXWORKS
 	if (pthread_mutex_unlock(handle))
-	{
 		return thr_MUTEX_RET_UNLOCKERROR;
-	}
 
 #endif
 
@@ -301,41 +255,29 @@ int thr_sem_init(thr_SEM* handle)
 #if defined WIN32
 	*handle = CreateSemaphore(NULL, 0, 65536, NULL);
 	if (NULL == *handle)
-	{
 		return thr_SEM_RET_CREATEFAILED;
-	}
 
 #elif defined LINUX
 	if (pthread_mutex_init(&(handle->mutex), NULL))
-	{
 		return thr_SEM_RET_CREATEFAILED;
-	}
 
 	if (pthread_cond_init(&(handle->cond), NULL))
-	{
 		pthread_mutex_destroy(&(handle->mutex));
 		return thr_SEM_RET_CREATEFAILED;
-	}
 
 	handle->count = 0;
 
 #elif defined VXWORKS
 	if (handle == NULL)
-	{
 		return thr_SEM_RET_CREATEFAILED;
-	}
 	memset(handle, 0, sizeof(thr_SEM));
 
 	if (pthread_mutex_init(&(handle->mutex), NULL))
-	{
 		return thr_SEM_RET_CREATEFAILED;
-	}
 
 	if (pthread_cond_init(&(handle->cond), NULL))
-	{
 		pthread_mutex_destroy(&(handle->mutex));
 		return thr_SEM_RET_CREATEFAILED;
-	}
 
 	handle->count = 0;
 
@@ -403,19 +345,15 @@ int thr_sem_wait(thr_SEM* handle)
 {
 #if defined WIN32
 	if (WAIT_FAILED == WaitForSingleObject(*handle, INFINITE)) 
-	{
 		return thr_SEM_RET_WAITERROR;
-	}
 
 #elif defined LINUX
 	if (pthread_mutex_lock(&(handle->mutex)))
 		return thr_SEM_RET_WAITERROR;
 
-	while (handle->count <= 0)
-	{
+	while (handle->count <= 0) {
 		if (pthread_cond_wait(&(handle->cond), &(handle->mutex)) 
-				&& (errno != EINTR))
-		{
+				&& (errno != EINTR)) {
 			break;
 		}
 	}
@@ -428,11 +366,9 @@ int thr_sem_wait(thr_SEM* handle)
 	if (pthread_mutex_lock(&(handle->mutex)))
 		return thr_SEM_RET_WAITERROR;
 
-	while (handle->count <= 0)
-	{
+	while (handle->count <= 0) {
 		if (pthread_cond_wait(&(handle->cond), &(handle->mutex)) 
-				&& (errno != EINTR))
-		{
+				&& (errno != EINTR)) {
 			break;
 		}
 	}
@@ -453,14 +389,10 @@ int thr_sem_timewait(thr_SEM* handle, UINT32 milliseconds)
 
 	dwRet = WaitForSingleObject(*handle, milliseconds);
 	if (WAIT_FAILED == dwRet) 
-	{
 		return thr_SEM_RET_WAITERROR;
-	}
 
 	if (WAIT_TIMEOUT == dwRet)
-	{
 		return thr_SEM_RET_TIMEOUT;
-	}
 
 #elif defined LINUX
 	int ret;
@@ -476,17 +408,14 @@ int thr_sem_timewait(thr_SEM* handle, UINT32 milliseconds)
 	ts.tv_sec += sec;
 	ts.tv_nsec += millisec * 1000000;
 
-	while (handle->count <= 0)
-	{
+	while (handle->count <= 0) {
 		ret = pthread_cond_timedwait(&(handle->cond), &(handle->mutex), &ts); 
-		if (ret && (errno != EINTR))
-		{
+		if (ret && (errno != EINTR)) {
 			break;
 		}
 	}
 
-	if (ret)
-	{
+	if (ret) {
 		if (pthread_mutex_unlock(&(handle->mutex)))
 			return thr_SEM_RET_WAITERROR;
 
@@ -494,7 +423,6 @@ int thr_sem_timewait(thr_SEM* handle, UINT32 milliseconds)
 			return thr_SEM_RET_TIMEOUT;
 
 		return thr_SEM_RET_WAITERROR;
-
 	}
 
 	handle->count--;
@@ -516,17 +444,14 @@ int thr_sem_timewait(thr_SEM* handle, UINT32 milliseconds)
 	ts.tv_sec += sec;
 	ts.tv_nsec += millisec * 1000000;
 
-	while (handle->count <= 0)
-	{
+	while (handle->count <= 0) {
 		ret = pthread_cond_timedwait(&(handle->cond), &(handle->mutex), &ts); 
-		if (ret && (errno != EINTR))
-		{
+		if (ret && (errno != EINTR)) {
 			break;
 		}
 	}
 
-	if (ret)
-	{
+	if (ret) {
 		if (pthread_mutex_unlock(&(handle->mutex)))
 			return thr_SEM_RET_WAITERROR;
 
@@ -534,7 +459,6 @@ int thr_sem_timewait(thr_SEM* handle, UINT32 milliseconds)
 			return thr_SEM_RET_TIMEOUT;
 
 		return thr_SEM_RET_WAITERROR;
-
 	}
 
 	handle->count--;
@@ -644,26 +568,22 @@ thrdpool_t *thr_createThrdPool(int maxthrds, int maxtasks, char *plogfile) {
 	thr_sem_init(&(pthrdpool->thread_sem));
 
 	for (idx = 0; idx < maxthrds; idx++) 
-	{
 		thr_thread_create(&(pthrdpool->thrdtab.pthrds[idx]), thrdproc
 		    , (void *)pthrdpool);
-	}
 
 	return pthrdpool;
 }
 
 int thr_destroyThrdPool(thrdpool_t *pthrdpool) {
 	UINT32 idx;
-	if(pthrdpool == NULL) {
+	if(pthrdpool == NULL) 
         return threadpool_invalid;
-    }
 
 	for (idx = 0; idx < pthrdpool->thrdtab.count; idx++) {
 #ifdef	LINUX
 		pthread_cancel(pthrdpool->thrdtab.pthrds[idx]);
 #elif  defined WIN32
 		TerminateThread(pthrdpool->thrdtab.pthrds[idx],1);
-
 #endif
 	}
 
