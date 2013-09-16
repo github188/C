@@ -20,6 +20,7 @@ int main(int argc, const char *argv[])
 	lamont_hdump((unsigned char*)t_arr_t, sizeof(t_arr_t));
 
 	/* check interval time */
+#if 0
 	static int work_time = 0;
 	#define WORK_INTERVAL_TIME 5
 	if (1 == check_work_time(&work_time, WORK_INTERVAL_TIME)) {
@@ -49,6 +50,21 @@ int main(int argc, const char *argv[])
 	else {
 		printf("free time.\n");
 	}
+#endif
+
+	/* splits string to array */
+	int i=0;
+	char results[50][MAX_STR_LEN] = {0};
+	/*
+	char *test = "";
+	char *test = "  ";
+	char *test = "abc 123   55 66 a12cc";
+	*/
+	char *test = "  abc 123   55 66 a12cc  ";
+
+	int count = get_buffer_all(test, ' ', results, sizeof(results));
+	for (i=0; i<count; i++)
+		printf("results[%d] = %s\n", i, results[i]);
 
 	return 0;
 }

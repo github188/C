@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <time.h> 
+#include "util.h"
 
 /*
  * code from nmap 3.20
@@ -175,5 +176,34 @@ void print_buf(char *buf, int len)
 		else printf("0x%02d ", buf[i]);
 	}
 	printf("\n");
+}
+
+/*
+ * splite buffer to array by delim character
+ */
+int get_buffer_all(const char *buffer, const char delim, char (*results)[MAX_STR_LEN], const int size)
+{
+	const char *pos1, *pos2;
+	int num = 0;
+
+	pos1 = pos2 = buffer;
+
+	while (1) {
+		/* find position of not delim character */
+		while (*pos1 == delim) pos1++;
+
+		/* find position of delim character or terminal */
+		pos2 = pos1;
+		while (*pos2 != delim && *pos2 != '\0') pos2++;
+
+		if (pos2 == pos1 || num == size) break;
+
+		strncpy(results[num++], pos1, (int)(pos2-pos1));
+
+		if (*pos2 == '\0') break;
+		pos1 = pos2;
+	}
+
+	return num;
 }
 
