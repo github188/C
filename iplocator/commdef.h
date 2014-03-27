@@ -3,6 +3,8 @@
 #ifndef _COMMDEF_H_
 #define _COMMDEF_H_
 
+#include <stdio.h>
+
 // verify both of communicator, length 29+1
 #define BCAST_ASK "BCAST-ASK-E677-B97A-B1D8-A81F"
 #define BCAST_ACK "BCAST-ACK-9966-32C4-6A2D-527D"
