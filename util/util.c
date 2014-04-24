@@ -170,12 +170,14 @@ int check_work_time(long *work_time, const int interval_time)
  */
 void print_buf(char *buf, int len)
 {
+	printf("\n---------------data buf: %d bytes----------------", len);
 	int i=0;
 	for (; i<len; i++) {
-		if ((i+1)%9 == 0) printf("\n");
-		else printf("0x%02d ", buf[i]);
+		if (i%16 == 0) printf("\n");
+		else if (i%8 == 0) printf("  ");
+		printf("%02x ", buf[i]&0xff); /* avoid integer type-promotion */
 	}
-	printf("\n");
+	printf("\n-------------------------------------------------\n\n");
 }
 
 /*
