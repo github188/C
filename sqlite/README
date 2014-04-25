@@ -1,0 +1,15 @@
+###operation command
+
+* open database
+
+	sqlite3 test.db
+
+* show tabase
+
+	.tables
+
+* select operation
+
+	select * from table_name;
+
+

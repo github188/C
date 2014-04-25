@@ -1,0 +1,13 @@
+# "make" is executed in all the subdirectories of this directory
+
+CC = gcc
+CFLAGS  = -I../lib -g -o2 -D_REENTRANT -Wall
+LIBS = ../libunp.a -lpthread
+
+LIBUNP_NAME = ../libunp.a
+
+LIB_OBJS = error.o wrapsock.o str_echo.o writen.o wrapunix.o wraplib.o str_cli.o \
+           readline.o wrapstdio.o tcp_listen.o tcp_connect.o signal.o readn.o \
+		   write_fd.o read_fd.o
+
+CLEANFILES = *.o *.a tags cscope.out
