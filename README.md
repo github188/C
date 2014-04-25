@@ -54,3 +54,8 @@ Reference:
 use sg_ses control ISCSI expander LED light  
 Reference:  
 + [use sg_ses](http://matrix207.github.com/2013/06/20/use-sg_ses/)
+
+##sqlite
++ [sqlite_c_cpp](http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm)
++ [sqlite insert](http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_insert.c)
++ [sqlite select](http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c)
