@@ -59,3 +59,10 @@ Reference:
 + [sqlite_c_cpp](http://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm)
 + [sqlite insert](http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_insert.c)
 + [sqlite select](http://www.csl.mtu.edu/cs1141/www/examples/sqlite/sqlite_select.c)
+
+##mystrace
++ [ptrace I](http://www.linuxjournal.com/article/6100)
++ [ptrace II](http://www.linuxjournal.com/article/6210)
++ [ptrace运行原理及使用详解](http://blog.csdn.net/edonlii/article/details/8717029)
++ [How to play with ptrace on x86-64](http://stackoverflow.com/questions/7418315/how-to-play-with-ptrace-on-x86-64)
+
