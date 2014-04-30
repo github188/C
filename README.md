@@ -66,3 +66,12 @@ Reference:
 + [ptrace运行原理及使用详解](http://blog.csdn.net/edonlii/article/details/8717029)
 + [How to play with ptrace on x86-64](http://stackoverflow.com/questions/7418315/how-to-play-with-ptrace-on-x86-64)
 
+##malloc
+Implement malloc and free
++ [Computer Systems - A Programmer's Perspective Second Edition]()
++ [code](http://csapp.cs.cmu.edu/public/code.html)
++ [Malloc](https://github.com/ltganesan/Malloc)
+
+##mmpool
+Implement memory pool
+
