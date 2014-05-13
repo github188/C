@@ -52,6 +52,17 @@ int main(int argc, const char *argv[])
 	}
 #endif
 
+#if 0
+#define PRINT(a) printf(#a"=%d\n", a)
+	int a = 5;
+	int b = 3;
+	PRINT(a);
+	PRINT(b);
+	SWAP(a,b);
+	PRINT(a);
+	PRINT(b);
+#endif
+
 	/* splits string to array */
 	int i=0;
 	char results[50][MAX_STR_LEN] = {0};
