@@ -75,3 +75,9 @@ Implement malloc and free
 ##mmpool
 Implement memory pool
 
+##hexdump
+Implement hexdump.  
+Hexdump tools on linux includes : hexdump, vim  
+If you want view file 1.dat in binary, you can use:  
+1. `hexdump -C 1.dat`  
+2. `vim -b 1.dat`, then `:%!xxd`, `:%!xxd -r`
