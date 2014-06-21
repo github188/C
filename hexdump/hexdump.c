@@ -49,7 +49,11 @@ int main(int argc, char **argv)
         return -1;
     }
     fseek(fp, 0, SEEK_SET);
-    fread(buf, sizeof(char), size, fp);
+    int rsize = fread(buf, sizeof(char), size, fp);
+    if (rsize != size) {
+        printf("Reading error.\n");
+        return -1;
+    }
     print_buf(buf, size);
     free(buf);
     fclose(fp);
