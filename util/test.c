@@ -11,13 +11,14 @@
 
 #include <stdio.h>
 #include "util.h"
+#include "time_test.h"
 
 int main(int argc, const char *argv[])
 {
 	/* generate a array with 30 elements, and do hex dump */
 	unsigned int t_arr_t[30] = {0};
 	get_random_bytes(t_arr_t, sizeof(t_arr_t));
-	lamont_hdump((unsigned char*)t_arr_t, sizeof(t_arr_t));
+	lamont_hdump((char*)t_arr_t, sizeof(t_arr_t));
 
 	/* check interval time */
 #if 0
@@ -65,7 +66,7 @@ int main(int argc, const char *argv[])
 
 	/* splits string to array */
 	int i=0;
-	char results[50][MAX_STR_LEN] = {0};
+	char results[50][MAX_STR_LEN] = {};
 	/*
 	char *test = "";
 	char *test = "  ";
@@ -76,6 +77,12 @@ int main(int argc, const char *argv[])
 	int count = get_buffer_all(test, ' ', results, sizeof(results));
 	for (i=0; i<count; i++)
 		printf("results[%d] = %s\n", i, results[i]);
+
+	
+	TIME_START();
+	for (i=0; i<1000; i++)
+		i *= 5;
+	TIME_END();
 
 	return 0;
 }
