@@ -6,8 +6,9 @@
 #include <errno.h>
 #include <ctype.h>
 #include <sys/types.h>
-#include <sys/time.h>
-#include <time.h> 
+#include <sys/time.h>  /* gettimeofday */
+#include <unistd.h>    /* getpid */
+#include <arpa/inet.h> /* ntohs */
 #include "util.h"
 
 /*
@@ -102,7 +103,7 @@ int get_random_bytes(void *buf, int numbytes) {
 		if (fp) {
 			res = fread(bytebuf, 1, sizeof(bytebuf), fp);
 			if (res != sizeof(bytebuf)) {    
-				error("Failed to read from /dev/urandom or /dev/random");
+				perror("Failed to read from /dev/urandom or /dev/random");
 				fclose(fp);
 				fp = NULL;
 			}      
