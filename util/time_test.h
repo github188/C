@@ -1,25 +1,29 @@
 #ifndef _TIME_TEST_
 #define _TIME_TEST_
 
-#include <time.h>
-#include <sys/time.h>
+#include <time.h>      /* clock */
+#include <sys/time.h>  /* gettimeofday */
 
 /* NOTICE! Change here to select the method you want */
-#define USE_CLOCK 1
+#define USE_CLOCK 0
 
-/* Using clock, calculate CPU time */
+/* Using clock, calculate CPU time, cpu_time=user_time+sys_time */
 clock_t _ct_start, _ct_end;
 #define TIME_START_CL() do { _ct_start = clock();} while (0)
 #define TIME_END_CL()  do { _ct_end = clock(); \
-	printf("time = %ld\n", _ct_end - _ct_start); } while (0)
+	printf("Elapsed time %ld sec\n", (_ct_end - _ct_start)/CLOCKS_PER_SEC); \
+/*	printf("Elapsed time %ld usec\n", (_ct_end - _ct_start)/(CLOCKS_PER_SEC/1000000)); \ */ \
+	} while (0)
 
-/* Using gettimeofday, calculate real time */
+/* Using gettimeofday, calculate real time, real_time=cpu_time+wait_time
+ * Because linux is multi-task operate system, so the value of wait_time is 
+ * difference on each task
+ */
 struct timeval _tv_begin, _tv_end;
-#define TIME_START_TV() do { gettimeofday(&_tv_begin, NULL); \
-		printf("sec=%d, usec=%d\n",_tv_begin.tv_sec, _tv_begin.tv_usec); } while (0)
+#define TIME_START_TV() do { gettimeofday(&_tv_begin, NULL); } while (0)
 #define TIME_END_TV()   do { gettimeofday(&_tv_end, NULL); \
-		printf("sec=%d, usec=%d\n",_tv_end.tv_sec, _tv_end.tv_usec); \
-		printf("time = %d\n", _tv_end.tv_usec - _tv_begin.tv_usec); } while (0)
+		printf("Elapsed time %ld usec\n", _tv_end.tv_usec - _tv_begin.tv_usec); \
+		} while (0)
 
 #if USE_CLOCK
 	#define TIME_START() TIME_START_CL()

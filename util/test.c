@@ -10,6 +10,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "util.h"
 #include "time_test.h"
 
@@ -80,8 +81,7 @@ int main(int argc, const char *argv[])
 
 	
 	TIME_START();
-	for (i=0; i<1000; i++)
-		i *= 5;
+	system("ls");
 	TIME_END();
 
 	return 0;
