@@ -182,6 +182,51 @@ void print_buf(char *buf, int len)
 }
 
 /*
+ * print buffer, include line index and ascii code 
+ */
+void print_buf2(char *buf, int len)
+{
+	/* size of asciify is 257 */
+	static const char asciify[] = "................................ !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~.................................................................................................................................";
+
+	if (len <=0 ) return;
+
+	printf("\n---------------------------data buf: %d bytes---------------------------", len);
+
+	int i=0;
+	unsigned char index;
+	for (; i<len; i++) {
+		if (i%16 == 0) {
+			if (i>0) {
+				int count = 16;
+				printf("  ");
+				while (count--) {
+					index = buf[i-count-1];
+					printf("%c", asciify[index]); 
+				}
+			}
+			printf("\n");
+			/* print line number */
+			printf("%04x  ", i/16);
+		}
+		else if (i%8 == 0) printf("  ");
+		printf("%02x ", buf[i]&0xff); /* avoid integer type-promotion */
+	}
+
+	/* print ascii for the last line */
+	int count = ((i%16==0)?16:i%16);
+	int space = (16-count)*3;
+	printf("  %s", (count<9)?"  ":"");
+	while (space--) printf(" ");
+	while (count--) {
+		index = buf[i-count-1];
+		printf("%c", asciify[index]); 
+	}
+
+	printf("\n------------------------------------------------------------------------\n\n");
+}
+
+/*
  * splite buffer to array by delim character
  */
 int get_buffer_all(const char *buffer, const char delim, char (*results)[MAX_STR_LEN], const int size)

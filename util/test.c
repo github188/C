@@ -14,12 +14,16 @@
 #include "util.h"
 #include "time_test.h"
 
+#define ARRAR_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
 int main(int argc, const char *argv[])
 {
 	/* generate a array with 30 elements, and do hex dump */
-	unsigned int t_arr_t[30] = {0};
+	unsigned char t_arr_t[295] = {0};
 	get_random_bytes(t_arr_t, sizeof(t_arr_t));
-	lamont_hdump((char*)t_arr_t, sizeof(t_arr_t));
+	//lamont_hdump((char*)t_arr_t, sizeof(t_arr_t));
+	//print_buf((char*)t_arr_t, sizeof(t_arr_t));
+	print_buf2((char*)t_arr_t, sizeof(t_arr_t));
 
 	/* check interval time */
 #if 0
