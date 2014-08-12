@@ -81,3 +81,26 @@ Hexdump tools on linux includes : hexdump, vim
 If you want view file 1.dat in binary, you can use:  
 1. `hexdump -C 1.dat`  
 2. `vim -b 1.dat`, then `:%!xxd`, `:%!xxd -r`
+
+##setprocesstitle
+set farther process and child process title dynamically
+
+reference from Nginx code "nginx-1.7.4/src/os/unix/ngx_setproctitle.c"
+
+using `ps auxf |grep test`
+
+Below is a sample running:
+
+[dennis@localhost setprocesstitle]$ ./test &   
+[1] 26496  
+test: fork process 4  
+test: fork process 3  
+test: fork process 2  
+test: fork process 1  
+[dennis@localhost setprocesstitle]$ ps f |grep test |grep -v grep  
+26496 pts/4    S      0:00  \_ test: master process  
+26499 pts/4    S      0:00  |   \_ test: worker procee 1  
+26500 pts/4    S      0:00  |   \_ test: worker procee 2  
+26501 pts/4    S      0:00  |   \_ test: worker procee 3  
+26502 pts/4    S      0:00  |   \_ test: worker procee 4  
+
