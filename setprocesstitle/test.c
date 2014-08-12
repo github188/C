@@ -5,7 +5,7 @@
 #include "setproctitle.h"
 
 char **os_argv;
-int ngx_test(int argc,char **argv)
+int test(int argc,char **argv)
 {
 	os_argv = argv;
 
@@ -39,7 +39,7 @@ int ngx_test(int argc,char **argv)
 
 int main(int argc,char **argv)
 {
-	ngx_test(argc, argv);
+	test(argc, argv);
 	return 0;
 }
 
