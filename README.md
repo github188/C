@@ -71,6 +71,7 @@ Implement malloc and free
 + [Computer Systems - A Programmer's Perspective Second Edition]()
 + [code](http://csapp.cs.cmu.edu/public/code.html)
 + [Malloc](https://github.com/ltganesan/Malloc)
++ [如何实现一个malloc](http://blog.codinglabs.org/articles/a-malloc-tutorial.html)
 
 ##mmpool
 Implement memory pool
